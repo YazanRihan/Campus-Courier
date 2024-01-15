@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<robot name="camco">
+    <xacro:include filename="$(find kobuki_description)/urdf/kobuki.urdf.xacro" />
+    <xacro:kobuki/>
+</robot>
