@@ -3,6 +3,9 @@
 To build Campus Courier on Foxy
 
 ```
+cd
+mkdir -p camco_ws/src
+git clone https://github.com/YazanRihan/Campus-Courier.git
 cd ~/camco_ws
 vcs import src < src/Campus-Courier/dependencies.repos
 rosdep update --include-eol-distros

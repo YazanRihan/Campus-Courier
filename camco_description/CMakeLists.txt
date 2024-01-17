@@ -13,9 +13,10 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(kobuki_description REQUIRED)
+find_package(turtlebot4_description REQUIRED)
 
 install(
-  DIRECTORY launch rviz urdf
+  DIRECTORY launch rviz urdf meshes
   DESTINATION share/${PROJECT_NAME}
 )
 
