@@ -3,7 +3,11 @@
      <!-- Importing xacro elemnets -->
     <xacro:include filename="$(find kobuki_description)/urdf/kobuki.urdf.xacro" />
     <xacro:include filename="$(find turtlebot4_description)/urdf/sensors/rplidar.urdf.xacro" />
+    <xacro:include filename="$(find camco_description)/urdf/camco_platform.urdf.xacro" />
     <xacro:kobuki/>
-
+    
+    <xacro:camco_platform parent_link="base_link" name="camco_platform">
+    <origin xyz="0 0 0.1356" rpy="0 0 0" />
+  </xacro:camco_platform>
     
 </robot>
