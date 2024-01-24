@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+<xacro:macro name="camco_platform" params="name:=camco_platform parent_link:=base_link *origin">
+
+  <xacro:property name="mass" value="0.81144"/>
+
+  <xacro:property name="link_name" value="${name}_link"/>
+  <xacro:property name="joint_name" value="${name}_joint"/>
+
+  <link name="${link_name}">
+    <!-- Virtual link for hierarchy -->>
+  </link>
+
+  <joint name="${joint_name}" type="fixed">
+    <parent link="${parent_link}"/>
+    <child link="${link_name}"/>
+    <xacro:insert_block name="origin"/>
+  </joint>
+
+  <link name="lower_platform_link">
+    <visual>
+      <geometry>
+       <mesh filename="package://camco_description/meshes/lower_platform.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="lower_platform_joint" type="fixed">
+    <parent link="${link_name}"/>
+    <child link="lower_platform_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="upper_platform_link">
+    <visual>
+      <geometry>
+       <mesh filename="package://camco_description/meshes/upper_platform.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="upper_platform_joint" type="fixed">
+    <parent link="lower_platform_link"/>
+    <child link="upper_platform_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+
+</xacro:macro>
+
+</robot>
