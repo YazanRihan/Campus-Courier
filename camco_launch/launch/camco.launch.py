@@ -31,7 +31,7 @@ def generate_launch_description():
     # Include kobuki_node-launch.py and remap /commands/velocity to /cmd_vel
     kobuki_node_launch_include = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([kobuki_node_launch_file]),
-        remappings=[('/commands/velocity', '/cmd_vel')]
+        remappings=[('commands/velocity', 'cmd_vel')]
         )
 
 
