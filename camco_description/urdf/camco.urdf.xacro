@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <robot name="camco" xmlns:xacro="http://ros.org/wiki/xacro">
-     <!-- Importing xacro elemnets -->
-    <xacro:include filename="$(find irobot_create_description)/urdf/common_properties.urdf.xacro"/>
+    <!-- Importing xacro elemnets -->
     <xacro:include filename="$(find kobuki_description)/urdf/kobuki.urdf.xacro" />
     <xacro:include filename="$(find turtlebot4_description)/urdf/sensors/rplidar.urdf.xacro" />
     <xacro:include filename="$(find camco_description)/urdf/camco_platform.urdf.xacro" />
     
+    <!-- Defining offsets -->
+    <xacro:property name="rplidar_z_to_platform"              value="0.105"/>
+    <xacro:property name="platform_z_to_base_link"              value="0.089"/>
 
-    <xacro:property name="rplidar_z_offset"              value="${7.529272*cm2m}"/>
-
+    <!-- Adding xacro elements -->
     <xacro:kobuki/>
     
     <xacro:camco_platform parent_link="base_link" name="camco_platform">
-    <origin xyz="0 0 0.089" rpy="0 0 0" />
-  </xacro:camco_platform>
+      <origin xyz="0 0 ${platform_z_to_base_link}" rpy="0 0 0" />
+    </xacro:camco_platform>
 
-  <xacro:rplidar name="rplidar" parent_link="lower_platform_link" gazebo="False">
-    <origin xyz="0 0 0.105"
-            rpy="0 0 ${pi/2}"/>
-  </xacro:rplidar>
+    <xacro:rplidar name="rplidar" parent_link="lower_platform_link" gazebo="False">
+      <origin xyz="0  0 ${rplidar_z_to_platform}" rpy="0 0 ${pi/2}"/>
+    </xacro:rplidar>
     
 </robot>

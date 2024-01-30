@@ -3,7 +3,7 @@
 
 <xacro:macro name="camco_platform" params="name:=camco_platform parent_link:=base_link *origin">
 
-  <xacro:property name="mass" value="0.81144"/>
+  <xacro:property name="lower_platform_z_length" value="0.06"/>
 
   <xacro:property name="link_name" value="${name}_link"/>
   <xacro:property name="joint_name" value="${name}_joint"/>
@@ -43,7 +43,7 @@
   <joint name="upper_platform_joint" type="fixed">
     <parent link="lower_platform_link"/>
     <child link="upper_platform_link"/>
-    <origin xyz="0 0 0.06" rpy="0 0 0"/>
+    <origin xyz="0 0 ${lower_platform_z_length}" rpy="0 0 0"/>
   </joint>
 
 
