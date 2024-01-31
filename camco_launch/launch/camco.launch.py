@@ -1,8 +1,8 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, GroupAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution
-from launch_ros.actions import Node
+from launch_ros.actions import SetRemap
 from ament_index_python.packages import get_package_share_directory
 
 
@@ -29,11 +29,14 @@ def generate_launch_description():
         )
     
     # Include kobuki_node-launch.py and remap /commands/velocity to /cmd_vel
-    kobuki_node_launch_include = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([kobuki_node_launch_file]),
-        remappings=[('commands/velocity', 'cmd_vel')]
-        )
-
+    kobuki_node_launch_include = GroupAction(
+        actions=[
+            SetRemap(src='commands/velocity',dst='cmd_vel'),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([kobuki_node_launch_file])
+            )
+        ]
+    )
 
     ld.add_action(camco_description_launch_include)
     ld.add_action(kobuki_node_launch_include)
