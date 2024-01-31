@@ -9,6 +9,12 @@ from ament_index_python.packages import get_package_share_directory
 def generate_launch_description():
     ld = LaunchDescription()
 
+    # Get the path to camco_launch/rviz/camco.rviz
+    pkg_camco_launch = get_package_share_directory('camco_launch')
+    
+    camco_launch_rviz_config_file = PathJoinSubstitution(
+        [pkg_camco_launch, 'rviz', 'camco.rviz'])
+
     # Get the path to camco_description.launch.py
     pkg_camco_description = get_package_share_directory('camco_description')
     
@@ -25,7 +31,7 @@ def generate_launch_description():
     # Include camco_description.launch.py and set rviz argument to false
     camco_description_launch_include = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([camco_description_launch_file]),
-        launch_arguments={'use_rviz': "False"}.items()
+        launch_arguments={'rviz_config_file': camco_launch_rviz_config_file}.items()
         )
     
     # Include kobuki_node-launch.py and remap /commands/velocity to /cmd_vel

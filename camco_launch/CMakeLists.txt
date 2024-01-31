@@ -16,7 +16,7 @@ find_package(camco_description REQUIRED)
 find_package(kobuki_node REQUIRED)
 
 install(
-  DIRECTORY launch
+  DIRECTORY launch rviz
   DESTINATION share/${PROJECT_NAME}
 )
 
