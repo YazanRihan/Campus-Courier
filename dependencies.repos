@@ -20,11 +20,3 @@ repositories:
     type: git
     url: https://github.com/kobuki-base/kobuki_ros.git
     version: release/1.1.x
-  turtlebot4:
-    type: git
-    url: https://github.com/turtlebot/turtlebot4.git
-    version: humble
-  create3_sim:
-    type: git
-    url: https://github.com/iRobotEducation/create3_sim.git
-    version: foxy
