@@ -1,5 +1,5 @@
-<!-- Obtained from turtlebot4_description package-->
 <?xml version="1.0"?>
+<!-- Obtained from turtlebot4_description package-->
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
 <xacro:macro name="rplidar" params="name parent_link gazebo *origin">
@@ -34,20 +34,6 @@
     </collision>
     <xacro:inertial_cuboid mass="0.17" x="${length_x}" y="${length_y}" z="${length_z}"/>
   </link>
-
-  <gazebo reference="${name}_link">
-    <xacro:ray_sensor sensor_name="${name}" gazebo="${gazebo}" 
-                  update_rate="62.0" visualize="1" 
-                  h_samples="640" h_res="1.0" h_min_angle="${-pi}" h_max_angle="${pi}" 
-                  r_min="0.164" r_max="12.0" r_res="0.01">
-                  <plugin name="dummy" filename="dummyfile"></plugin>
-    </xacro:ray_sensor>
-    <xacro:material_darkgray/>
-  </gazebo>
-
-  <gazebo reference="${name}_joint">
-    <preserveFixedJoint>true</preserveFixedJoint>
-  </gazebo>
 
 </xacro:macro>
 </robot>

@@ -13,7 +13,6 @@
   <test_depend>ament_lint_common</test_depend>
 
   <exec_depend>kobuki_description</exec_depend>
-  <exec_depend>turtlebot4_description</exec_depend>
   <exec_depend>urdf</exec_depend>
   <exec_depend>xacro</exec_depend>
   <exec_depend>rviz2</exec_depend>
