@@ -52,7 +52,7 @@ def generate_launch_description():
             output='screen',
             parameters=[{
                 'serial_port': '/dev/RPLIDAR',
-                'serial_baudrate': 115200,
+                'serial_baudrate': 57600,
                 'frame_id': 'rplidar_link',
                 'inverted': False,
                 'angle_compensate': True,
