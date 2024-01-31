@@ -2,7 +2,7 @@ from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, GroupAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution
-from launch_ros.actions import SetRemap
+from launch_ros.actions import SetRemap, Node
 from ament_index_python.packages import get_package_share_directory
 
 
@@ -44,7 +44,24 @@ def generate_launch_description():
         ]
     )
 
+    #Launching RPLIDAR node
+    rplidar_node = Node(
+            name='rplidar_composition',
+            package='rplidar_ros',
+            executable='rplidar_composition',
+            output='screen',
+            parameters=[{
+                'serial_port': '/dev/RPLIDAR',
+                'serial_baudrate': 115200,
+                'frame_id': 'rplidar_link',
+                'inverted': False,
+                'angle_compensate': True,
+                'auto_standby': True,
+            }],
+        )
+
     ld.add_action(camco_description_launch_include)
     ld.add_action(kobuki_node_launch_include)
+    ld.add_action(rplidar_node)
 
     return ld

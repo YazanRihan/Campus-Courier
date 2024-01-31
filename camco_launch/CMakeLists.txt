@@ -14,6 +14,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(camco_description REQUIRED)
 find_package(kobuki_node REQUIRED)
+find_package(rplidar_ros REQUIRED)
 
 install(
   DIRECTORY launch rviz
