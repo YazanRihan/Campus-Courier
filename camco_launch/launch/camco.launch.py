@@ -5,7 +5,7 @@ from launch.substitutions import PathJoinSubstitution
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 import yaml
-
+import os
 
 def generate_launch_description():
     ld = LaunchDescription()
@@ -15,9 +15,8 @@ def generate_launch_description():
     
     camco_launch_rviz_config_file = PathJoinSubstitution(
         [pkg_camco_launch, 'rviz', 'camco.rviz'])
-    
-    kobuki_node_config_file = PathJoinSubstitution(
-        [pkg_camco_launch, 'config', 'kobuki_node_params.yaml'])
+
+    kobuki_node_config_file = os.path.join(pkg_camco_launch, 'config', 'kobuki_node_params.yaml')
 
     # Get the path to camco_description.launch.py
     pkg_camco_description = get_package_share_directory('camco_description')

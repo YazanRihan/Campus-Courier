@@ -17,7 +17,7 @@ find_package(kobuki_node REQUIRED)
 find_package(rplidar_ros REQUIRED)
 
 install(
-  DIRECTORY launch rviz
+  DIRECTORY launch rviz config
   DESTINATION share/${PROJECT_NAME}
 )
 
