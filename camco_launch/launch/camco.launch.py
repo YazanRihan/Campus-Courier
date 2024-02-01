@@ -25,12 +25,6 @@ def generate_launch_description():
     camco_description_launch_file = PathJoinSubstitution(
         [pkg_camco_description, 'launch', 'camco_description.launch.py'])
     
-    # Get the path to kobuki_node-launch.py
-    pkg_kobuki_node = get_package_share_directory('kobuki_node')
-    
-    kobuki_node_launch_file = PathJoinSubstitution(
-        [pkg_kobuki_node, 'launch', 'kobuki_node-launch.py'])
-    
 
     # Include camco_description.launch.py and set rviz argument to false
     camco_description_launch_include = IncludeLaunchDescription(

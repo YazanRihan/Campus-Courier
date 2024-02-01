@@ -22,3 +22,11 @@ sudo cp 60-kobuki.rules /etc/udev/rules.d
 sudo service udev reload
 sudo service udev restart
 ```
+
+To connect to RPLIDAR
+```
+cd ~/camco_ws/src/Campus-Courier/scripts/
+sudo cp rplidar.rules /etc/udev/rules.d
+sudo service udev reload
+sudo service udev restart
+```
