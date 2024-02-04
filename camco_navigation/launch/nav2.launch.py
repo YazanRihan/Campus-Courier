@@ -22,21 +22,11 @@ def launch_setup(context, *args, **kwargs):
     pkg_nav2_bringup = get_package_share_directory('nav2_bringup')
 
     nav2_params = LaunchConfiguration('params_file')
-    # namespace = LaunchConfiguration('namespace')
-    # use_sim_time = LaunchConfiguration('use_sim_time')
-
-    # namespace_str = namespace.perform(context)
-    # if (namespace_str and not namespace_str.startswith('/')):
-    #     namespace_str = '/' + namespace_str
 
     launch_nav2 = PathJoinSubstitution(
         [pkg_nav2_bringup, 'launch', 'navigation_launch.py'])
 
     nav2 = GroupAction([
-        # PushRosNamespace(namespace),
-        # SetRemap(namespace_str + '/global_costmap/scan', namespace_str + '/scan'),
-        # SetRemap(namespace_str + '/local_costmap/scan', namespace_str + '/scan'),
-
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(launch_nav2),
             launch_arguments=[
