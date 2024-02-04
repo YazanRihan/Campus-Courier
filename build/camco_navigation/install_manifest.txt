@@ -1,5 +1,7 @@
+/home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/config/nav2.yaml
 /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/config/slam.yaml
 /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/launch/slam.launch.py
+/home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/launch/nav2.launch.py
 /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/ament_index/resource_index/package_run_dependencies/camco_navigation
 /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/ament_index/resource_index/parent_prefix_path/camco_navigation
 /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/environment/ament_prefix_path.sh

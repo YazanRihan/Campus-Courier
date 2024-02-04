@@ -1,0 +1,33 @@
+-- Found ament_cmake: 1.3.7 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found ament_lint_auto: 0.12.10 (/opt/ros/humble/share/ament_lint_auto/cmake)
+-- Added test 'copyright' to check source files copyright and LICENSE
+-- Added test 'flake8' to check Python code syntax and style conventions
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/mustafa/camco_ws/src/Campus-Courier/build/camco_navigation
+-- Install configuration: ""
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/config
+-- Installing: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/config/nav2.yaml
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/config/slam.yaml
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/launch
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/launch/slam.launch.py
+-- Installing: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/launch/nav2.launch.py
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/maps
+-- Installing: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/ament_index/resource_index/package_run_dependencies/camco_navigation
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/ament_index/resource_index/parent_prefix_path/camco_navigation
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/environment/ament_prefix_path.sh
+-- Installing: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/environment/path.sh
+-- Installing: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/environment/path.dsv
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/local_setup.bash
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/local_setup.sh
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/local_setup.zsh
+-- Installing: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/local_setup.dsv
+-- Installing: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/package.dsv
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/ament_index/resource_index/packages/camco_navigation
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/cmake/camco_navigationConfig.cmake
+-- Up-to-date: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/cmake/camco_navigationConfig-version.cmake
+-- Installing: /home/mustafa/camco_ws/src/Campus-Courier/install/camco_navigation/share/camco_navigation/package.xml
