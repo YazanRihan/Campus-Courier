@@ -2,7 +2,7 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, GroupAction
 from launch.conditions import IfCondition, UnlessCondition
 from launch.substitutions import PathJoinSubstitution, LaunchConfiguration
-from launch_ros.actions import Node, PushRosNameSpace
+from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 from nav2_common.launch import RewrittenYaml
 
