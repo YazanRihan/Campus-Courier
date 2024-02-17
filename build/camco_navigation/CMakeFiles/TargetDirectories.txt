@@ -1,9 +1,0 @@
-/home/mustafa/camco_ws/src/Campus-Courier/build/camco_navigation/CMakeFiles/uninstall.dir
-/home/mustafa/camco_ws/src/Campus-Courier/build/camco_navigation/CMakeFiles/camco_navigation_uninstall.dir
-/home/mustafa/camco_ws/src/Campus-Courier/build/camco_navigation/CMakeFiles/test.dir
-/home/mustafa/camco_ws/src/Campus-Courier/build/camco_navigation/CMakeFiles/edit_cache.dir
-/home/mustafa/camco_ws/src/Campus-Courier/build/camco_navigation/CMakeFiles/rebuild_cache.dir
-/home/mustafa/camco_ws/src/Campus-Courier/build/camco_navigation/CMakeFiles/list_install_components.dir
-/home/mustafa/camco_ws/src/Campus-Courier/build/camco_navigation/CMakeFiles/install.dir
-/home/mustafa/camco_ws/src/Campus-Courier/build/camco_navigation/CMakeFiles/install/local.dir
-/home/mustafa/camco_ws/src/Campus-Courier/build/camco_navigation/CMakeFiles/install/strip.dir
