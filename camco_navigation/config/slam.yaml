@@ -25,7 +25,7 @@ slam_toolbox:
     minimum_time_interval: 0.25
     transform_timeout: 0.2
     tf_buffer_duration: 30.
-    stack_size_to_use: 40000000 #// program needs a larger stack size to serialize large maps
+    stack_size_to_use: 4000000000 #// program needs a larger stack size to serialize large maps
     enable_interactive_mode: true
 
     # General Parameters
