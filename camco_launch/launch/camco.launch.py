@@ -25,7 +25,7 @@ def generate_launch_description():
         [pkg_camco_description, 'launch', 'camco_description.launch.py'])
 
     # Define the use_rviz argument with default value False
-    use_rviz_arg = LaunchConfiguration('use_rviz', default='False')
+    use_rviz_arg = LaunchConfiguration('use_rviz')
 
     # Include camco_description.launch.py and set rviz argument to use_rviz_arg
     camco_description_launch_include = IncludeLaunchDescription(
