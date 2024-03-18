@@ -33,7 +33,7 @@ def generate_launch_description():
         launch_arguments={'rviz_config_file': camco_launch_rviz_config_file,
                           'use_rviz': use_rviz_arg}.items()
         )
-    
+
     # Launch kobuki node and remap /commands/velocity to /cmd_vel
     with open(kobuki_node_config_file, 'r') as f:
         kobuki_params = yaml.safe_load(f)['kobuki_ros_node']['ros__parameters']
