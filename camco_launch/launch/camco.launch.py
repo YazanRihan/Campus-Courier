@@ -1,7 +1,7 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import PathJoinSubstitution
+from launch.substitutions import PathJoinSubstitution, LaunchConfiguration
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 import yaml
@@ -9,6 +9,13 @@ import os
 
 def generate_launch_description():
     ld = LaunchDescription()
+
+    use_rviz = LaunchConfiguration('use_rviz')
+    
+    declare_use_rviz_cmd = DeclareLaunchArgument(
+    name='use_rviz',
+    default_value='False',
+    description='Whether to start RVIZ')
 
     # Get the path to camco_launch/rviz/camco.rviz and kobuki params
     pkg_camco_launch = get_package_share_directory('camco_launch')
@@ -28,7 +35,7 @@ def generate_launch_description():
     # Include camco_description.launch.py and set rviz argument to false
     camco_description_launch_include = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([camco_description_launch_file]),
-        launch_arguments={'rviz_config_file': camco_launch_rviz_config_file}.items()
+        launch_arguments={'rviz_config_file': camco_launch_rviz_config_file, 'use_rviz' : use_rviz}.items()
         )
     
     # Launch kobuki node and remap /commands/velocity to /cmd_vel
@@ -60,8 +67,11 @@ def generate_launch_description():
             }],
         )
 
+    ld.add_action(declare_use_rviz_cmd)
+
     ld.add_action(camco_description_launch_include)
     ld.add_action(kobuki_ros_node)
     ld.add_action(rplidar_node)
 
     return ld
+
