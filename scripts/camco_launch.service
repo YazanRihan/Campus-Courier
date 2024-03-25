@@ -1,0 +1,12 @@
+[Unit]
+Description=Launch camco.launch.py
+After=network-online.target
+
+[Service]
+Type=simple
+User=camco
+Environment="HOME=/home/ubuntu"
+ExecStart=/home/camco/camco_ws/src/Campus-Courier/scripts/camco_launch.sh
+
+[Install]
+WantedBy=multi-user.target

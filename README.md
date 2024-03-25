@@ -30,3 +30,12 @@ sudo cp rplidar.rules /etc/udev/rules.d
 sudo service udev reload
 sudo service udev restart
 ```
+
+To run the Kobuki and RPLIDAR on boot
+```
+cd ~/camco_ws/src/Campus-Courier/scripts/
+sudo cp camco_launch.service /etc/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl start camco_launch
+sudo systemctl enable camco_launch
+```
