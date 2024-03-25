@@ -35,7 +35,14 @@ To run the Kobuki and RPLIDAR on boot
 ```
 cd ~/camco_ws/src/Campus-Courier/scripts/
 sudo cp camco_launch.service /etc/systemd/system
+sudo chmod 664 /etc/systemd/system/camco_launch.service
 sudo systemctl daemon-reload
-sudo systemctl start camco_launch
-sudo systemctl enable camco_launch
+sudo systemctl start camco_launch.service
+sudo systemctl enable camco_launch.service
+
+#Check status by
+sudo systemctl status camco_launch.service
+
+#To restart use
+sudo systemctl restart camco_launch.service
 ```

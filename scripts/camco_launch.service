@@ -1,12 +1,13 @@
 [Unit]
-Description=Launch camco.launch.py
 After=network-online.target
+Description=Launch camco launch
 
 [Service]
-Type=simple
 User=camco
-Environment="HOME=/home/ubuntu"
-ExecStart=/home/camco/camco_ws/src/Campus-Courier/scripts/camco_launch.sh
+ExecStart=/bin/bash -c 'source /home/camco/camco_ws/install/setup.bash; ros2 launch camco_launch camco.launch.py use_rviz:=false;'
+RemainAfterExit=no
+Restart=on-failure
+RestartSec=2s
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
