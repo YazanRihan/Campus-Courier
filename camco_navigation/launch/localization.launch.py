@@ -31,7 +31,7 @@ def generate_launch_description():
     map_arg = DeclareLaunchArgument(
         'map',
         default_value=PathJoinSubstitution(
-            [pkg_camco_navigation, 'maps', 'm9.yaml']),
+            [pkg_camco_navigation, 'maps', 'w12.yaml']),
         description='Full path to map yaml file to load')
 
     namespace = LaunchConfiguration('namespace')
