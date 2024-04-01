@@ -28,11 +28,13 @@ def generate_launch_description():
             [pkg_camco_navigation, 'config', 'localization.yaml']),
         description='Localization parameters')
 
+    
     map_arg = DeclareLaunchArgument(
         'map',
-        default_value=PathJoinSubstitution(
-            [pkg_camco_navigation, 'maps', 'w12.yaml']),
-        description='Full path to map yaml file to load')
+        default_value='w12.yaml',
+        description='name of the map yaml file to load')
+    
+    map_full_path = PathJoinSubstitution([pkg_camco_navigation, 'maps', LaunchConfiguration('map')])
 
     namespace = LaunchConfiguration('namespace')
     use_sim_time = LaunchConfiguration('use_sim_time')
@@ -45,7 +47,7 @@ def generate_launch_description():
                 PathJoinSubstitution(
                     [pkg_nav2_bringup, 'launch', 'localization_launch.py'])),
             launch_arguments={'namespace': namespace,
-                              'map': LaunchConfiguration('map'),
+                              'map': map_full_path,
                               'use_sim_time': use_sim_time,
                               'params_file': LaunchConfiguration('params')}.items()),
     ])
