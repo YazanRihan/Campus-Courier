@@ -14,99 +14,116 @@
 # limitations under the License.
 
 from geometry_msgs.msg import PoseStamped
+from std_msgs.msg import String
 from nav2_simple_commander.robot_navigator import BasicNavigator, TaskResult
 import rclpy
 from rclpy.duration import Duration
 import yaml
+import os
+from rclpy.node import Node
+from ament_index_python.packages import get_package_share_directory
 
 """
 Basic navigation demo to go to pose.
 """
+class CamcoResolver(Node):
+
+    def __init__(self):
+        super().__init__('camco_resolver')
+
+        self.initial_subscription = self.create_subscription(String,'initial_room',self.initial_listener_callback,10)
+        self.initial_subscription  # prevent unused variable warning
+
+        self.goal_subscription = self.create_subscription(String,'goal_room',self.goal_listener_callback,10)
+        self.goal_subscription  # prevent unused variable warning
+
+        self.navigator = BasicNavigator()
+
+        pkg_camco_mission = get_package_share_directory('camco_mission')
+        self.rooms_yaml_path = os.path.join(pkg_camco_mission, 'room_numbers.yaml')
+
+    def initial_listener_callback(self, msg):
+        self.get_logger().info('Initial Room Callback: "%s"' % msg.data)
+        
+        initial_room = msg.data
+        initial_building = initial_building = initial_room.split('-')[0]
+
+        with open(self.rooms_yaml_path, 'r') as roomsResolver:
+            rooms = yaml.full_load(roomsResolver)
+
+        initial_pose = PoseStamped()
+        initial_pose.header.frame_id = 'map'
+        initial_pose.header.stamp = self.navigator.get_clock().now().to_msg()
+        initial_pose.pose.position.x = float(rooms.get(initial_building).get(initial_room).get("x"))
+        initial_pose.pose.position.y = float(rooms.get(initial_building).get(initial_room).get("y"))
+        initial_pose.pose.orientation.z = float(rooms.get(initial_building).get(initial_room).get("z"))
+        initial_pose.pose.orientation.w = float(rooms.get(initial_building).get(initial_room).get("w"))
+        
+        print("Resolved initial pose is: ", initial_pose.__repr__())
+
+        self.navigator.setInitialPose(initial_pose)
+    
+    def goal_listener_callback(self, msg):
+        self.get_logger().info('Goal Room Callback: "%s"' % msg.data)
+        
+        goal_room = msg.data
+        goal_building = goal_room.split('-')[0]
+
+        with open(self.rooms_yaml_path, 'r') as roomsResolver:
+            rooms = yaml.full_load(roomsResolver)
+        
+        self.navigator.waitUntilNav2Active()
+
+        goal_pose = PoseStamped()
+        goal_pose.header.frame_id = 'map'
+        goal_pose.header.stamp = self.navigator.get_clock().now().to_msg()
+        goal_pose.pose.position.x = float(rooms.get(goal_building).get(goal_room).get("x"))
+        goal_pose.pose.position.y = float(rooms.get(goal_building).get(goal_room).get("y"))
+        goal_pose.pose.orientation.z = float(rooms.get(goal_building).get(goal_room).get("z"))
+        goal_pose.pose.orientation.w = float(rooms.get(goal_building).get(goal_room).get("w"))
+
+        print("Resolved goal pose is: ", goal_pose.__repr__())
+
+        self.navigator.goToPose(goal_pose)
+
+        i = 0
+        while not self.navigator.isTaskComplete():
+
+            # Do something with the feedback
+            i = i + 1
+            feedback = self.navigator.getFeedback()
+            if feedback and i % 5 == 0:
+                print(
+                    'Estimated time of arrival: '
+                    + '{0:.0f}'.format(
+                        Duration.from_msg(feedback.estimated_time_remaining).nanoseconds
+                        / 1e9
+                    )
+                    + ' seconds.'
+                )
+        # Do something depending on the return code
+        result = self.navigator.getResult()
+        if result == TaskResult.SUCCEEDED:
+            print('Goal succeeded!')
+        elif result == TaskResult.CANCELED:
+            print('Goal was canceled!')
+        elif result == TaskResult.FAILED:
+            print('Goal failed!')
+        else:
+            print('Goal has an invalid return status!')
+        
+
+
 
 
 def main():
     rclpy.init()
-    with open('room_numbers.yaml', 'r') as roomsResolver:
-        rooms = yaml.full_load(roomsResolver)
-    navigator = BasicNavigator()
-    # Set our demo's initial pose
-    initial_pose = PoseStamped()
-    initial_pose.header.frame_id = 'map'
-    initial_pose.header.stamp = navigator.get_clock().now().to_msg()
-    initial_pose.pose.position.x = float(rooms.get("M9").get("M9-001").get("x"))
-    initial_pose.pose.position.y = float(rooms.get("M9").get("M9-001").get("y"))
-    initial_pose.pose.orientation.z = float(rooms.get("M9").get("M9-001").get("z"))
-    initial_pose.pose.orientation.w = float(rooms.get("M9").get("M9-001").get("w"))
-    navigator.setInitialPose(initial_pose)
-    # Activate navigation, if not autostarted. This should be called after setInitialPose()
-    # or this will initialize at the origin of the map and update the costmap with bogus readings.
-    # If autostart, you should `waitUntilNav2Active()` instead.
-    # navigator.lifecycleStartup()
 
-    # Wait for navigation to fully activate, since autostarting nav2
-    navigator.waitUntilNav2Active()
+    camco_resolver = CamcoResolver()
 
-    # If desired, you can change or load the map as well
-    # navigator.changeMap('/path/to/map.yaml')
+    rclpy.spin(camco_resolver)
 
-    # You may use the navigator to clear or obtain costmaps
-    # navigator.clearAllCostmaps()  # also have clearLocalCostmap() and clearGlobalCostmap()
-    # global_costmap = navigator.getGlobalCostmap()
-    # local_costmap = navigator.getLocalCostmap()
-
-    # Go to our demos first goal pose
-    goal_pose = PoseStamped()
-    goal_pose.header.frame_id = 'map'
-    goal_pose.header.stamp = navigator.get_clock().now().to_msg()
-    goal_pose.pose.position.x = float(rooms.get("M9").get("M9-007").get("x"))
-    goal_pose.pose.position.y = float(rooms.get("M9").get("M9-007").get("y"))
-    goal_pose.pose.orientation.z = float(rooms.get("M9").get("M9-007").get("z"))
-    goal_pose.pose.orientation.w = float(rooms.get("M9").get("M9-007").get("w"))
-    # sanity check a valid path exists
-    # path = navigator.getPath(initial_pose, goal_pose)
-
-    navigator.goToPose(goal_pose)
-
-    i = 0
-    while not navigator.isTaskComplete():
-        ################################################
-        #
-        # Implement some code here for your application!
-        #
-        ################################################
-
-        # Do something with the feedback
-        i = i + 1
-        feedback = navigator.getFeedback()
-        if feedback and i % 5 == 0:
-            print(
-                'Estimated time of arrival: '
-                + '{0:.0f}'.format(
-                    Duration.from_msg(feedback.estimated_time_remaining).nanoseconds
-                    / 1e9
-                )
-                + ' seconds.'
-            )
-
-            # Some navigation timeout to demo cancellation
-            if Duration.from_msg(feedback.navigation_time) > Duration(seconds=600.0):
-                navigator.cancelTask()
-
-
-    # Do something depending on the return code
-    result = navigator.getResult()
-    if result == TaskResult.SUCCEEDED:
-        print('Goal succeeded!')
-    elif result == TaskResult.CANCELED:
-        print('Goal was canceled!')
-    elif result == TaskResult.FAILED:
-        print('Goal failed!')
-    else:
-        print('Goal has an invalid return status!')
-
-    navigator.lifecycleShutdown()
-
-    exit(0)
+    camco_resolver.destroy_node()
 
 
 if __name__ == '__main__':
