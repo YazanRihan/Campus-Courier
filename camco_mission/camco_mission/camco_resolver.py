@@ -17,6 +17,7 @@ from geometry_msgs.msg import PoseStamped
 from nav2_simple_commander.robot_navigator import BasicNavigator, TaskResult
 import rclpy
 from rclpy.duration import Duration
+import yaml
 
 """
 Basic navigation demo to go to pose.
@@ -25,16 +26,17 @@ Basic navigation demo to go to pose.
 
 def main():
     rclpy.init()
-
+    with open('room_numbers.yaml', 'r') as roomsResolver:
+        rooms = yaml.full_load(roomsResolver)
     navigator = BasicNavigator()
     # Set our demo's initial pose
     initial_pose = PoseStamped()
     initial_pose.header.frame_id = 'map'
     initial_pose.header.stamp = navigator.get_clock().now().to_msg()
-    initial_pose.pose.position.x = 0.213895
-    initial_pose.pose.position.y = -0.0360403
-    initial_pose.pose.orientation.z =  -0.679174
-    initial_pose.pose.orientation.w = 0.733977
+    initial_pose.pose.position.x = float(rooms.get("M9").get("M9-001").get("x"))
+    initial_pose.pose.position.y = float(rooms.get("M9").get("M9-001").get("y"))
+    initial_pose.pose.orientation.z = float(rooms.get("M9").get("M9-001").get("z"))
+    initial_pose.pose.orientation.w = float(rooms.get("M9").get("M9-001").get("w"))
     navigator.setInitialPose(initial_pose)
     # Activate navigation, if not autostarted. This should be called after setInitialPose()
     # or this will initialize at the origin of the map and update the costmap with bogus readings.
@@ -56,10 +58,10 @@ def main():
     goal_pose = PoseStamped()
     goal_pose.header.frame_id = 'map'
     goal_pose.header.stamp = navigator.get_clock().now().to_msg()
-    goal_pose.pose.position.x = 2.46343
-    goal_pose.pose.position.y = -12.6528
-    goal_pose.pose.orientation.z = -0.679417
-    goal_pose.pose.orientation.w = 0.733752
+    goal_pose.pose.position.x = float(rooms.get("M9").get("M9-007").get("x"))
+    goal_pose.pose.position.y = float(rooms.get("M9").get("M9-007").get("y"))
+    goal_pose.pose.orientation.z = float(rooms.get("M9").get("M9-007").get("z"))
+    goal_pose.pose.orientation.w = float(rooms.get("M9").get("M9-007").get("w"))
     # sanity check a valid path exists
     # path = navigator.getPath(initial_pose, goal_pose)
 
