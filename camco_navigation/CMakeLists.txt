@@ -12,7 +12,7 @@ find_package(nav2_bringup REQUIRED)
 #find_package(nav2_simple_commander REQUIRED)
 
 install(
-  DIRECTORY config launch maps
+  DIRECTORY config launch maps rviz
   DESTINATION share/${PROJECT_NAME}
 )
 
