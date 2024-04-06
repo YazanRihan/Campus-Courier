@@ -17,6 +17,7 @@ def generate_launch_description():
         [pkg_camco_launch, 'rviz', 'camco.rviz'])
 
     kobuki_node_config_file = os.path.join(pkg_camco_launch, 'config', 'kobuki_node_params.yaml')
+    cmd_vel_mux_config_file = os.path.join(pkg_camco_launch, 'config', 'cmd_vel_mux_params.yaml')
 
     # Get the path to camco_description.launch.py
     pkg_camco_description = get_package_share_directory('camco_description')
@@ -38,12 +39,23 @@ def generate_launch_description():
     with open(kobuki_node_config_file, 'r') as f:
         kobuki_params = yaml.safe_load(f)['kobuki_ros_node']['ros__parameters']
     
+    with open(cmd_vel_mux_config_file, 'r') as f:
+        cmd_vel_mux_params = yaml.safe_load(f)['kobuki_ros_node']['ros__parameters']
+
+    
     kobuki_ros_node = Node(
         package='kobuki_node',
         node_executable='kobuki_ros_node',
         output='both',
         parameters=[kobuki_params],
-        remappings=[('commands/velocity', 'cmd_vel')]
+        remappings=[('commands/velocity', 'output/cmd_vel')]
+        )
+    
+    cmd_vel_mux_node = Node(
+        package='cmd_vel_mux',
+        node_executable='cmd_vel_mux_node',
+        output='both',
+        parameters=[cmd_vel_mux_params]
         )
 
     # Launching RPLIDAR node
@@ -64,6 +76,7 @@ def generate_launch_description():
 
     ld.add_action(camco_description_launch_include)
     ld.add_action(kobuki_ros_node)
+    ld.add_action(cmd_vel_mux_node)
     ld.add_action(rplidar_node)
 
     return ld
