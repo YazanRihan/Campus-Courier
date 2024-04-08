@@ -5,17 +5,13 @@ cmd_vel_mux:
         topic:       "cmd_vel_mux/safety_controller"
       timeout:        0.2
       priority:       10
-      - name:        "Nav2 velocity commands"
-        topic:       "cmd_vel_mux/nav2"
-      timeout:        0.2
-      priority:       1
       - name:        "Keyboard or joystick teleop"
         topic:       "cmd_vel_mux/teleop"
       timeout:        0.2
       priority:       5
-      - name:        "Misc"
+      - name:        "Misc and Nav2"
         topic:       "cmd_vel"
       timeout:        0.2
-      priority:       0
+      priority:       1
 
     publisher:    "output/cmd_vel"
