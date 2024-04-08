@@ -15,6 +15,8 @@ find_package(ament_cmake REQUIRED)
 find_package(camco_description REQUIRED)
 find_package(kobuki_node REQUIRED)
 find_package(rplidar_ros REQUIRED)
+find_package(cmd_vel_mux REQUIRED)
+find_package(kobuki_safety_controller REQUIRED)
 
 install(
   DIRECTORY launch rviz config
