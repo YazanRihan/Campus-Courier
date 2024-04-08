@@ -16,4 +16,4 @@ cmd_vel_mux:
           timeout:     0.1
           priority:    5
           short_desc:  "Keyboard or joystick teleop"
-    publisher:    "output/cmd_vel"
+    publisher:       "output/cmd_vel"

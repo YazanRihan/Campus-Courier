@@ -50,7 +50,7 @@ def generate_launch_description():
     
     kobuki_ros_node = Node(
         package='kobuki_node',
-        node_executable='kobuki_ros_node',
+        executable='kobuki_ros_node',
         output='both',
         parameters=[kobuki_params],
         remappings=[('commands/velocity', 'output/cmd_vel')]
@@ -58,14 +58,15 @@ def generate_launch_description():
     
     cmd_vel_mux_node = Node(
         package='cmd_vel_mux',
-        node_executable='cmd_vel_mux_node',
+        executable='cmd_vel_mux_node',
         output='both',
-        parameters=[cmd_vel_mux_params]
+        parameters=[cmd_vel_mux_params],
+        remappings=[('cmd_vel', 'output/cmd_vel')]
         )
     
     kobuki_safety_controller_node = Node(
         package='kobuki_safety_controller',
-        node_executable='kobuki_safety_controller_node',
+        executable='kobuki_safety_controller_node',
         output='both',
         parameters=[kobuki_safety_controller_params],
         remappings=[('cmd_vel', 'cmd_vel_mux/safety_controller')]
