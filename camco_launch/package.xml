@@ -14,7 +14,6 @@
   
   <exec_depend>camco_description</exec_depend>
   <exec_depend>kobuki_node</exec_depend>
-  <exec_depend>cmd_vel_mux</exec_depend>
   <exec_depend>kobuki_safety_controller</exec_depend>
   <exec_depend>rplidar_ros</exec_depend>
 

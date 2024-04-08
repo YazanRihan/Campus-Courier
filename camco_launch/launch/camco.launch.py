@@ -18,7 +18,6 @@ def generate_launch_description():
 
     camco_launch_rviz_config_file = PathJoinSubstitution([pkg_camco_launch, 'rviz', 'camco.rviz'])
     kobuki_node_config_file = os.path.join(pkg_camco_launch, 'config', 'kobuki_node_params.yaml')
-    cmd_vel_mux_config_file = os.path.join(pkg_camco_launch, 'config', 'cmd_vel_mux_params.yaml')
     kobuki_safety_controller_config_file = os.path.join(pkg_kobuki_safety_controller, 'config', 'safety_controller_params.yaml')
 
     # Get the path to camco_description.launch.py
@@ -37,12 +36,9 @@ def generate_launch_description():
                           'use_rviz': use_rviz_arg}.items()
         )
 
-    # Launch kobuki node and cmd_vel_mux
+    # Launch kobuki node
     with open(kobuki_node_config_file, 'r') as f:
         kobuki_params = yaml.safe_load(f)['kobuki_ros_node']['ros__parameters']
-    
-    with open(cmd_vel_mux_config_file, 'r') as f:
-        cmd_vel_mux_params = yaml.safe_load(f)['cmd_vel_mux']['ros__parameters']
     
     with open(kobuki_safety_controller_config_file, 'r') as f:
         kobuki_safety_controller_params = yaml.safe_load(f)['kobuki_safety_controller_node']['ros__parameters']
@@ -56,19 +52,12 @@ def generate_launch_description():
         remappings=[('commands/velocity', 'cmd_vel')]
         )
     
-    cmd_vel_mux_node = Node(
-        package='cmd_vel_mux',
-        executable='cmd_vel_mux_node',
-        output='both',
-        parameters=[cmd_vel_mux_params]
-        )
     
     kobuki_safety_controller_node = Node(
         package='kobuki_safety_controller',
         executable='kobuki_safety_controller_node',
         output='both',
-        parameters=[kobuki_safety_controller_params],
-        remappings=[('cmd_vel', 'cmd_vel_mux/safety_controller')]
+        parameters=[kobuki_safety_controller_params]
         )
 
     # Launching RPLIDAR node
@@ -90,7 +79,6 @@ def generate_launch_description():
     ld.add_action(camco_description_launch_include)
     ld.add_action(kobuki_ros_node)
     ld.add_action(kobuki_safety_controller_node)
-    ld.add_action(cmd_vel_mux_node)
     ld.add_action(rplidar_node)
 
     return ld
