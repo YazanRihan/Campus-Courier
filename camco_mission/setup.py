@@ -12,7 +12,7 @@ setup(
         ('share/' + package_name, ['resource/lookup/address_book.yaml']),
         ('share/' + package_name, ['package.xml']),
     ],
-    install_requires=['setuptools'],
+    install_requires=['setuptools', 'camco_kobuki_interface'],
     zip_safe=True,
     maintainer='patrolscouts',
     maintainer_email='yazanrihan@gmail.com',
@@ -21,7 +21,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'camco_resolver = camco_mission.camco_resolver:main',
+            'camco_mission = camco_mission.camco_mission:main',
         ],
     },
 )

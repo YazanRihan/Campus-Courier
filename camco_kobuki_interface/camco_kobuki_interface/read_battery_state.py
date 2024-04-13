@@ -18,10 +18,11 @@ class ReadBatteryStateServer(Node):
     
     def read_battery_state_callback(self, request, response):
         response.msg = self.latest_msg
-        self.get_logger().info('Incoming read battery state read')
+        self.get_logger().info('Incoming read battery state request')
         self.get_logger().info(f'Robot has %{response.msg.percentage}')
 
         return response
+        
 
 
 def main(args=None):

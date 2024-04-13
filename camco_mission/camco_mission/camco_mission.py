@@ -7,11 +7,14 @@ from camco_msgs.msg import RoomAddress
 from geometry_msgs.msg import PoseStamped
 from nav2_simple_commander.robot_navigator import BasicNavigator, TaskResult
 from ament_index_python.packages import get_package_share_directory
+from camco_msgs.srv import ReadBatteryState
 
-class CamcoResolver(Node):
+MIN_BATTERY = 20.0
+
+class CamcoMission(Node):
 
     def __init__(self):
-        super().__init__('camco_resolver')
+        super().__init__('camco_mission')
 
         self.initial_subscription = self.create_subscription(RoomAddress,'initial_address',self.initial_listener_callback,10)
         self.initial_subscription  # prevent unused variable warning
@@ -23,6 +26,23 @@ class CamcoResolver(Node):
 
         pkg_camco_mission = get_package_share_directory('camco_mission')
         self.addr_book_yaml_path = os.path.join(pkg_camco_mission, 'address_book.yaml')
+        
+        self.cli = self.create_client(ReadBatteryState, 'read_battery_state')
+
+        while not self.cli.wait_for_service(timeout_sec=1.0):
+            self.get_logger().info('read_battery_state service not available, waiting...')
+
+        self.req = ReadBatteryState.Request()
+    
+    def send_read_battery_state_request(self):
+        self.get_logger().info("Request sent started")
+        self.future = self.cli.call_async(self.req)
+        self.get_logger().info("Request sent finished")
+        rclpy.spin_until_future_complete(self, self.future) 
+        self.get_logger().info(f"Request response received, battery is %{self.future.result().msg.percentage}")
+        return self.future.result()
+
+
 
     def initial_listener_callback(self, msg):
         self.get_logger().info(f'Initial Address Callback: Building {msg.building} - Room {msg.room}')
@@ -45,7 +65,7 @@ class CamcoResolver(Node):
         self.navigator.setInitialPose(initial_pose)
     
     def goal_listener_callback(self, msg):
-        self.get_logger().info(f'Initial Address Callback: Building {msg.building} - Room {msg.room}')
+        self.get_logger().info(f'Goal Address Callback: Building {msg.building} - Room {msg.room}')
         
         goal_building = msg.building
         goal_room = msg.room
@@ -99,11 +119,22 @@ class CamcoResolver(Node):
 def main():
     rclpy.init()
 
-    camco_resolver = CamcoResolver()
+    camco_mission = CamcoMission()
+    read_battery_state_response = camco_mission.send_read_battery_state_request()
 
-    rclpy.spin(camco_resolver)
+    if read_battery_state_response is not None:
+        if read_battery_state_response.msg.percentage < MIN_BATTERY:
+            camco_mission.get_logger().error("Insufficient robot charge\nCould not bring node")
+            return
+        else:
+            camco_mission.get_logger().info("Sufficient robot charge\nSpinning node")
+    else:
+        camco_mission.get_logger().error("Failed to get battery state response")
+        return()
 
-    camco_resolver.destroy_node()
+    rclpy.spin(camco_mission)
+
+    camco_mission.destroy_node()
 
 
 if __name__ == '__main__':
