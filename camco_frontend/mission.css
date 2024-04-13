@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(90deg, #0e3441, #427581);
+    background-image: url('backgrounds/login-background.png');
+    background-size: cover; /* Cover the entire viewport */
+  }
+  
+  .container {
+    position: relative;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+  }
+  
+  .content-wrapper {
+    position: relative;
+    top: 10px; 
+    left: 80%; 
+    transform: translateX(-20%); 
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 24px;
+    color: #020202;
+    margin-bottom: 20px;
+    /* background: #e6e7e7; */
+    width: 800px;
+    height: 60px;
+    /* border: 10px solid #e6e7e7; */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-1.25%); /* Center horizontally */
+  }
+  
+  #map-container {
+    position: absolute;
+    top: 60px; /* Adjust the distance from the top */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+    width: 800px;
+    height: 600px;
+    border: 10px solid #adadad;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgb(0, 0, 0);
+  }
+
+  .top-bar {
+    background-color: #4d4b4b;
+    color: white;
+    padding: 20px 0px;
+    text-align: center;
+  }
+
+  /* Style for bottom bar */
+  .bottom-bar {
+    background-color: #333;
+    color: white;
+    padding: 25px 0px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+
+  /* Style for main content */
+  .bar-content {
+    padding: 20px;
+  }
+  
+  .container_menu {
+    position: absolute;
+    width: 400px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    top: 20%;
+    left: 20%
+  }
+  
+  h2 {
+    text-align: Left;
+    color: #333;
+    
+  }
+  
+  .selection-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .select {
+    margin-bottom: 10px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }

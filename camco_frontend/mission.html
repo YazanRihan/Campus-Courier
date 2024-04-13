@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Mission Planner</title>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/easeljs@1/lib/easeljs.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/eventemitter2@6/lib/eventemitter2.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
+<script type="text/javascript" src="./node_modules/ros2d/build/ros2d.min.js"></script>
+<link rel="stylesheet" href="mission.css">
+</head>
+<body onload="init()">
+  <div class="top-bar">Navigation Panel</div>
+  <div class="container">
+    <div class="content-wrapper">
+      <h1 class="title">Map Viewer</h1>
+      <div id="map-container">
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
+  <div class="container_menu">
+    <h2>Map Controls</h2>
+    <div class="selection-container">
+      <h2>Starting Point:</h2>
+      <div class="select">
+        <label for="start-point-building">Building:</label>
+        <select id="start-point-building"></select>
+      </div>
+      <div class="select">
+        <label for="start-point-room">Room:</label>
+        <select id="start-point-room"></select>
+      </div>
+      <h2>Destination:</h2>
+      <div class="select">
+        <label for="destination-building">Building:</label>
+        <select id="destination-building"></select>
+      </div>
+      <div class="select">
+        <label for="destination-room">Room:</label>
+        <select id="destination-room"></select>
+      </div>
+    </div>
+    <button class="button">Navigate</button>
+  </div>
+  <!-- <div class="bottom-bar">Bottom Bar Content</div> -->
+  <script src="mission.js"></script>
+</body>
+</html>
