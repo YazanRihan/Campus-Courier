@@ -29,7 +29,8 @@ find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/RoomAddress.msg"
   "srv/ReadBatteryState.srv"
-  DEPENDENCIES builtin_interfaces sensor_msgs
+  "msg/NavToPoseFeedback.msg"
+  DEPENDENCIES builtin_interfaces sensor_msgs geometry_msgs
  )
 
 ament_package()

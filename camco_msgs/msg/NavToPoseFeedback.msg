@@ -1,0 +1,6 @@
+#feedback definition as taken from nav2_msgs/action/NavigateToPose.action
+geometry_msgs/PoseStamped current_pose
+builtin_interfaces/Duration navigation_time
+builtin_interfaces/Duration estimated_time_remaining
+int16 number_of_recoveries
+float32 distance_remaining
