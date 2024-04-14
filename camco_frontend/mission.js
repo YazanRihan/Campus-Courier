@@ -58,37 +58,48 @@ const rooms = {
     }); 
 
     // Variables to test printing position
-    var x = "0";
-    var y = "0";
+    var remainingTime = "0";
+    var remainingDistance = "0";
+    var batteryState = "0";
 
     // Topic subscription example on initialpose to use it for other information
-    var InitialPoseListener = new ROSLIB.Topic({
+    var poseNavigationFeedback = new ROSLIB.Topic({
       ros : ros,
-      name : '/initialpose',
-      messageType : 'geometry_msgs/msg/PoseWithCovarianceStamped'
+      name : '/camco/navigate_to_pose/feedback_redirected',
+      messageType : 'camco_msgs/msg/NavToPoseFeedback'
     });
-    InitialPoseListener.subscribe(function(message) {
+
+    var batteryState = new ROSLIB.Topic({
+      ros : ros,
+      name : '/sensors/battery_state',
+      messageType : 'sensor_msgs/msg/BatteryState'
+    });
+
+    poseNavigationFeedback.subscribe(function(message) {
       // console.log('Received message on ' + InitialPoseListener.name + ': ' + JSON.stringify(message["pose"]["pose"]["position"]["x"]));
-      x = JSON.stringify(message["pose"]["pose"]["position"]["x"]);
-      y = JSON.stringify(message["pose"]["pose"]["position"]["y"]);
+      remainingTime = JSON.stringify(message["estimated_remaining_time.sec"]);
+      remainingDistance = JSON.stringify(message["distance_remaining"]);
     });
-    console.log(x);
+
+    batteryState.subscribe(function(message) {
+      // console.log('Received message on ' + InitialPoseListener.name + ': ' + JSON.stringify(message["pose"]["pose"]["position"]["x"]));
+      batteryState = JSON.stringify(message["percentage"]);
+    });
     function updateReadings() {
       // Simulated data for demonstration
-      const batteryState = Math.random() * 100; // Random battery state between 0 and 100
-      const xPosition = parseFloat(x);
-      const yPosition = parseFloat(y);
+      const battery = parseFloat(batteryState); // Random battery state between 0 and 100
+      const time = parseFloat(remainingTime);
+      const distance = parseFloat(remainingDistance);
       const speed = Math.random() * 100; // Random speed between 0 and 100 km/h
     
-      // Format the data into a string
-      const readingsString = `Battery State: ${batteryState.toFixed(2)}%<br>
-                              x Position: ${xPosition.toFixed(2)}m<br>
-                              y Position: ${yPosition.toFixed(2)}m<br>
+      // Format the data into a strings
+      const readingsString = `Battery State: ${battery.toFixed(2)}%<br>
+                              Remaining Time: ${time.toFixed(2)}m<br>
+                              Remaining Distance: ${distance.toFixed(2)}m<br>
                               Speed: ${speed.toFixed(2)} km/h`;
     
       // Update the content of the readings container
       document.getElementById('readings-container').innerHTML = readingsString;
-      console.log(x);
     }
     setInterval(updateReadings, 200);
   const buildings = Object.keys(rooms);
@@ -136,4 +147,35 @@ const rooms = {
       // Clear existing options and populate rooms dropdown
       destinationRoom.innerHTML = '';
       populateOptions(destinationRoom, roomsSelection);
+    });
+
+    document.getElementById('navigate-button').addEventListener('click', function() {
+      // Create a Publisher object for the topic you want to publish to
+      var initialAddress = new ROSLIB.Topic({
+        ros: ros,
+        name: '/initial_address', // Adjust the topic name according to your ROS setup
+        messageType: 'camco_msgs/msg/RoomAddress' // Adjust the message type according to your ROS setup
+      });
+    
+      // Create a message object
+      var initial_address = new ROSLIB.Message({
+        building: startPointBuilding.value,
+        room: startPointRoom.value
+      });
+
+      var goalAddress = new ROSLIB.Topic({
+        ros: ros,
+        name: '/goal_address', // Adjust the topic name according to your ROS setup
+        messageType: 'camco_msgs/msg/RoomAddress' // Adjust the message type according to your ROS setup
+      });
+    
+      // Create a message object
+      var goal_address = new ROSLIB.Message({
+        building: startPointBuilding.value,
+        room: startPointRoom.value
+      });
+    
+      // Publish the message to the topic
+      initialAddress.publish(initial_address);
+      goalAddress.publish(goal_address);
     });
