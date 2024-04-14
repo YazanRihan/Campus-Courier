@@ -22,7 +22,6 @@ setup(
     entry_points={
         'console_scripts': [
             'camco_mission = camco_mission.camco_mission:main',
-            'redirect_mission_status = camco_mission.redirect_mission_status:main',
         ],
     },
 )

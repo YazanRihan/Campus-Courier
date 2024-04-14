@@ -3,7 +3,7 @@ import yaml
 import rclpy
 from rclpy.node import Node
 from rclpy.duration import Duration
-from camco_msgs.msg import RoomAddress, NavToPoseFeedback
+from camco_msgs.msg import RoomAddress, NavToPoseFeedback, NavToPoseStatus
 from geometry_msgs.msg import PoseStamped
 from nav2_simple_commander.robot_navigator import BasicNavigator, TaskResult
 from ament_index_python.packages import get_package_share_directory
@@ -25,7 +25,15 @@ class CamcoMission(Node):
         self.nav_to_pose_feedback_publisher = self.create_publisher(NavToPoseFeedback,
                                                                      'camco/navigate_to_pose/feedback_redirected',
                                                                      10)
+        
+        self.nav_to_pose_status_publisher = self.create_publisher(NavToPoseStatus,
+                                                                     'camco/navigate_to_pose/status_redirected',
+                                                                     10)
 
+        self.nav_to_pose_status_msg = NavToPoseStatus()
+        self.nav_to_pose_status_msg.status = "unknown"
+        self.nav_to_pose_status_publisher.publish(self.nav_to_pose_status_msg)
+        
         self.navigator = BasicNavigator()
 
         pkg_camco_mission = get_package_share_directory('camco_mission')
@@ -89,7 +97,9 @@ class CamcoMission(Node):
         goal_pose.pose.orientation.w = float(addr_book.get(goal_building).get(goal_room).get("w"))
         self.get_logger().info(f"Resolved goal pose is: {goal_pose.__repr__()}")
 
-        self.navigator.goToPose(goal_pose)
+        if self.navigator.goToPose(goal_pose):
+            self.nav_to_pose_status_msg.status = "active"
+            self.nav_to_pose_status_publisher.publish(self.nav_to_pose_status_msg)
 
         i = 0
         while not self.navigator.isTaskComplete():
@@ -122,16 +132,21 @@ class CamcoMission(Node):
         # Do something depending on the return code
         result = self.navigator.getResult()
         if result == TaskResult.SUCCEEDED:
-            print('Goal succeeded!')
+            self.get_logger().info('Goal Succeeded!')
+            self.nav_to_pose_status_msg.status = "succeeded"
         elif result == TaskResult.CANCELED:
-            print('Goal was canceled!')
+            self.get_logger().info('Goal was canceled!')
+            self.nav_to_pose_status_msg.status = "canceled"
         elif result == TaskResult.FAILED:
-            print('Goal failed!')
+            self.get_logger().info('Goal failed!')
+            self.nav_to_pose_status_msg.status = "failed"
         else:
-            print('Goal has an invalid return status!')
+            self.get_logger().info('Goal has an invalid return status!')
+            self.nav_to_pose_status_msg.status = "invalid"
         
+        self.nav_to_pose_status_publisher.publish(self.nav_to_pose_status_msg)
 
-
+        
 
 
 def main():
