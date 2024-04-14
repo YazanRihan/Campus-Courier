@@ -78,7 +78,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     top: 20%;
-    left: 20%
+    left: 10%;
   }
   
   h2 {
@@ -122,3 +122,23 @@ body {
   button:hover {
     background-color: #0056b3;
   }
+
+  #readings-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    top: 50%;
+    left: 35%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    background-color: #ffffff;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+  }
+  
