@@ -6,7 +6,12 @@ const rooms = {
     ["main", "001", "002", "005", "006", "007", "008", "bathroom", "009", "010", "011"],
 
   "M10":
-    ["main", "001", "002", "003", "004", "005", "006", "007", "008", "bathroom", "009", "010", "011"]
+    ["main", "001", "002", "003", "004", "005", "006", "007", "008", "bathroom", "009", "010", "011"],
+  
+  "M5":
+    ["main", "203", "female_bathroom", "205", "206", "207", "208", "209", "210", "211", "212", "212A", 
+    "213", "214", "215", "216", "217", "218", "219", "220", "221", "222", "223", "male_bathroom", "225", "226", 
+    "227", "228", "229", "230", "231", "232", "234", "235", "236", "237", "238", "239", "239A"]
 }
 
 // function init() {
@@ -54,13 +59,15 @@ const rooms = {
     // Scale the canvas to fit to the map
     gridClient.on('change', function(){
       viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
-      viewer.shift(-54.8,-39.8)
+      viewer.shift(-28.0,-13.1)
     }); 
 
     // Variables to test printing position
     var remainingTime = "0";
     var remainingDistance = "0";
     var batteryState = "0";
+    var missionState = "";
+    var xSpeed = "0";
 
     // Topic subscription example on initialpose to use it for other information
     var poseNavigationFeedback = new ROSLIB.Topic({
@@ -69,34 +76,56 @@ const rooms = {
       messageType : 'camco_msgs/msg/NavToPoseFeedback'
     });
 
-    var batteryState = new ROSLIB.Topic({
+    var batteryStatus = new ROSLIB.Topic({
       ros : ros,
       name : '/sensors/battery_state',
       messageType : 'sensor_msgs/msg/BatteryState'
     });
 
+    var missionStatus = new ROSLIB.Topic({
+      ros : ros,
+      name : 'camco/navigate_to_pose/status_redirected',
+      messageType : 'camco_msgs/msg/NavToPoseStatus'
+    });
+
+    var speedStatus = new ROSLIB.Topic({
+      ros : ros,
+      name : '/cmd_vel',
+      messageType : 'geometry_msgs/msg/Twist'
+    });
+
     poseNavigationFeedback.subscribe(function(message) {
-      // console.log('Received message on ' + InitialPoseListener.name + ': ' + JSON.stringify(message["pose"]["pose"]["position"]["x"]));
       remainingTime = JSON.stringify(message["estimated_remaining_time.sec"]);
       remainingDistance = JSON.stringify(message["distance_remaining"]);
     });
 
-    batteryState.subscribe(function(message) {
-      // console.log('Received message on ' + InitialPoseListener.name + ': ' + JSON.stringify(message["pose"]["pose"]["position"]["x"]));
+    batteryStatus.subscribe(function(message) {
       batteryState = JSON.stringify(message["percentage"]);
     });
+
+    missionStatus.subscribe(function(message) {
+      missionState = JSON.stringify(message.status);
+    });   
+    
+    speedStatus.subscribe(function(message) {
+      xSpeed = JSON.stringify(message.linear.x);
+    });        
+
     function updateReadings() {
       // Simulated data for demonstration
-      const battery = parseFloat(batteryState); // Random battery state between 0 and 100
+      const battery = parseFloat(batteryState); 
       const time = parseFloat(remainingTime);
       const distance = parseFloat(remainingDistance);
-      const speed = Math.random() * 100; // Random speed between 0 and 100 km/h
+      const speed = parseFloat(xSpeed);
+      const mission = missionState;
     
       // Format the data into a strings
       const readingsString = `Battery State: ${battery.toFixed(2)}%<br>
                               Remaining Time: ${time.toFixed(2)}m<br>
                               Remaining Distance: ${distance.toFixed(2)}m<br>
-                              Speed: ${speed.toFixed(2)} km/h`;
+                              Speed: ${speed.toFixed(2)} m/s<br>
+                              Mission State: ${mission}`;
+
     
       // Update the content of the readings container
       document.getElementById('readings-container').innerHTML = readingsString;
@@ -171,8 +200,8 @@ const rooms = {
     
       // Create a message object
       var goal_address = new ROSLIB.Message({
-        building: startPointBuilding.value,
-        room: startPointRoom.value
+        building: destinationBuilding.value,
+        room: destinationRoom.value
       });
     
       // Publish the message to the topic
