@@ -47,8 +47,8 @@ const rooms = {
     // Create the main viewer.
     var viewer = new ROS2D.Viewer({
       divID : 'map',
-      width : 350,
-      height : 400
+      width : 600,
+      height : 600
     });
 
 
