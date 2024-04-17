@@ -143,7 +143,7 @@ localizationStatus = 'Not localized'
                               Remaining Time: ${time.toFixed(2)}m<br>
                               Remaining Distance: ${distance.toFixed(2)}m<br>
                               Speed: ${speed.toFixed(2)} m/s<br>
-                              Mission State: ${mission}m/s<br>
+                              Mission State: ${mission}<br>
                               Localization State: ${localization}`;
 
     
