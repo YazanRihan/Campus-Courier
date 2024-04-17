@@ -7,7 +7,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/eventemitter2@6/lib/eventemitter2.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
 <script type="text/javascript" src="./node_modules/ros2d/build/ros2d.min.js"></script>
-<script type="text/javascript" src="./node_modules/nav2djs/build/nav2d.js"></script>
+<script type="text/javascript" src="./node_modules/nav2djs/build/nav2d.min.js"></script>
 <link rel="stylesheet" href="mission.css">
 </head>
 <body>
@@ -22,7 +22,7 @@
   </div>
   <div id="readings-container"></div>
   <div class="container_menu">
-    <h2>Map Controls</h2>
+    <h1>Map Controls</h1>
     <div class="selection-container">
       <h2>Starting Point:</h2>
       <div class="select">
@@ -33,6 +33,7 @@
         <label for="start-point-room">Room:</label>
         <select id="start-point-room"></select>
       </div>
+      <button class="button" id="initial-button">Set Initial Location</button>
       <h2>Destination:</h2>
       <div class="select">
         <label for="destination-building">Building:</label>

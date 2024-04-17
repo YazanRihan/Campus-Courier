@@ -8,9 +8,10 @@
 }
 
 body {
-	background: linear-gradient(90deg, #0e3441, #427581);		
+	/* background: linear-gradient(90deg, #0e3441, #427581);		 */
 	/* background-color: #f0f0f0; */
 	background-image: url('./backgrounds/login-background.png');
+	background-size: cover; /* Cover the entire viewport */
 }
 
 .container {
