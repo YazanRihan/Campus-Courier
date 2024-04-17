@@ -14,6 +14,9 @@ const rooms = {
     "227", "228", "229", "230", "231", "232", "234", "235", "236", "237", "238", "239", "239A"]
 }
 
+const MIN_BATTERY = 20.0;
+localizationStatus = 'Not localized'
+
 // function init() {
 //     // Connect to ROS.
 //     var ros = new ROSLIB.Ros({
@@ -93,6 +96,12 @@ const rooms = {
       messageType : 'camco_msgs/msg/NavToPoseStatus'
     });
 
+    var initialPose = new ROSLIB.Topic({
+      ros : ros,
+      name : 'initialpose',
+      messageType : 'geometry_msgs/msg/PoseWithCovarianceStamped'
+    });
+
     var speedStatus = new ROSLIB.Topic({
       ros : ros,
       name : '/cmd_vel',
@@ -110,7 +119,11 @@ const rooms = {
 
     missionStatus.subscribe(function(message) {
       missionState = JSON.stringify(message.status);
-    });   
+    });
+
+    initialPose.subscribe(function(message){
+      localizationStatus = 'localized';
+    });
     
     speedStatus.subscribe(function(message) {
       xSpeed = JSON.stringify(message.linear.x);
@@ -123,17 +136,28 @@ const rooms = {
       const distance = parseFloat(remainingDistance);
       const speed = parseFloat(xSpeed);
       const mission = missionState;
+      const localization = localizationStatus;
     
       // Format the data into a strings
       const readingsString = `Battery State: ${battery.toFixed(2)}%<br>
                               Remaining Time: ${time.toFixed(2)}m<br>
                               Remaining Distance: ${distance.toFixed(2)}m<br>
                               Speed: ${speed.toFixed(2)} m/s<br>
-                              Mission State: ${mission}`;
+                              Mission State: ${mission}m/s<br>
+                              Localization State: ${localization}`;
 
     
       // Update the content of the readings container
       document.getElementById('readings-container').innerHTML = readingsString;
+
+      //Disable Navigate Button when battery is low
+      if (battery < MIN_BATTERY) {
+        document.getElementById('navigate-button').disabled = true;
+      }
+      else {
+        document.getElementById('navigate-button').disabled = false;
+      }
+
     }
     setInterval(updateReadings, 200);
   const buildings = Object.keys(rooms);
@@ -213,3 +237,5 @@ const rooms = {
       initialAddress.publish(initial_address);
       goalAddress.publish(goal_address);
     });
+
+    
