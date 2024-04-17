@@ -47,20 +47,25 @@ const rooms = {
     // Create the main viewer.
     var viewer = new ROS2D.Viewer({
       divID : 'map',
-      width : 800,
-      height : 600
+      width : 350,
+      height : 400
     });
 
-    // Setup the map client.
-    var gridClient = new ROS2D.OccupancyGridClient({
+
+    // Setup the nav client.
+    var gridClient = NAV2D.OccupancyGridClientNav({
       ros : ros,
-      rootObject : viewer.scene
+      rootObject : viewer.scene,
+      viewer : viewer,
+      serverName : '/nav_to_pose',
+      actionName : 'nav2_msgs/NavigateToPose',
+      use_image: 'turtlebot.png'
     });
     // Scale the canvas to fit to the map
-    gridClient.on('change', function(){
-      viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
-      viewer.shift(-28.0,-13.1)
-    }); 
+    
+    //viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
+    //viewer.shift(-28.0,-13.1);
+  
 
     // Variables to test printing position
     var remainingTime = "0";
