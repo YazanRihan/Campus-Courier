@@ -64,17 +64,17 @@ localizationStatus = 'Not localized'
       use_image: 'turtlebot.png'
     });
 
-    var client = new ROS2D.OccupancyGridClient({
-      ros : ros,
-      rootObject : NAV2D.rootObject,
-      continuous : NAV2D.continuous,
-      topic : NAV2D.map_topic
-    });
+    // var client = new ROS2D.OccupancyGridClient({
+    //   ros : ros,
+    //   rootObject : NAV2D.rootObject,
+    //   continuous : NAV2D.continuous,
+    //   topic : NAV2D.map_topic
+    // });
 
-    client.on('change', function() {
-      // scale the viewer to fit the map
-      NAV2D.old_state = NAV2D.resizeMap(NAV2D.old_state, viewer, client.currentGrid);
-    });
+    // client.on('change', function() {
+    //   // scale the viewer to fit the map
+    //   NAV2D.old_state = NAV2D.resizeMap(NAV2D.old_state, viewer, client.currentGrid);
+    // });
     // Scale the canvas to fit to the map
     
     //viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
@@ -218,7 +218,7 @@ localizationStatus = 'Not localized'
       populateOptions(destinationRoom, roomsSelection);
     });
 
-    document.getElementById('navigate-button').addEventListener('click', function() {
+    document.getElementById('initial-button').addEventListener('click', function() {
       // Create a Publisher object for the topic you want to publish to
       var initialAddress = new ROSLIB.Topic({
         ros: ros,
@@ -232,6 +232,12 @@ localizationStatus = 'Not localized'
         room: startPointRoom.value
       });
 
+      // Publish the message to the topic
+      initialAddress.publish(initial_address);
+    });
+
+    document.getElementById('navigate-button').addEventListener('click', function() {
+      // Create a Publisher object for the topic you want to publish to
       var goalAddress = new ROSLIB.Topic({
         ros: ros,
         name: '/goal_address', // Adjust the topic name according to your ROS setup
@@ -245,7 +251,6 @@ localizationStatus = 'Not localized'
       });
     
       // Publish the message to the topic
-      initialAddress.publish(initial_address);
       goalAddress.publish(goal_address);
     });
 
