@@ -118,7 +118,7 @@ localizationStatus = 'Not localized'
     });
 
     missionStatus.subscribe(function(message) {
-      missionState = JSON.stringify(message.status);
+      missionState = message.status;
     });
 
     initialPose.subscribe(function(message){
