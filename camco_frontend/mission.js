@@ -109,7 +109,7 @@ localizationStatus = 'Not localized'
     });
 
     poseNavigationFeedback.subscribe(function(message) {
-      remainingTime = JSON.stringify(message["estimated_remaining_time.sec"]);
+      remainingTime = JSON.stringify(message["estimated_remaining_time"]["sec"]);
       remainingDistance = JSON.stringify(message["distance_remaining"]);
     });
 
@@ -132,7 +132,7 @@ localizationStatus = 'Not localized'
     function updateReadings() {
       // Simulated data for demonstration
       const battery = parseFloat(batteryState); 
-      const time = parseFloat(remainingTime);
+      const time = parseInt(remainingTime);
       const distance = parseFloat(remainingDistance);
       const speed = parseFloat(xSpeed);
       const mission = missionState;
@@ -140,7 +140,7 @@ localizationStatus = 'Not localized'
     
       // Format the data into a strings
       const readingsString = `Battery State: ${battery.toFixed(2)}%<br>
-                              Remaining Time: ${time.toFixed(2)}m<br>
+                              Remaining Time: ${time}s<br>
                               Remaining Distance: ${distance.toFixed(2)}m<br>
                               Speed: ${speed.toFixed(2)} m/s<br>
                               Mission State: ${mission}<br>
