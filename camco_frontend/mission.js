@@ -50,10 +50,9 @@ localizationStatus = 'Not localized'
     // Create the main viewer.
     var viewer = new ROS2D.Viewer({
       divID : 'map',
-      width : 600,
+      width : 800,
       height : 600
     });
-
 
     // Setup the nav client.
     var gridClient = NAV2D.OccupancyGridClientNav({
@@ -63,6 +62,18 @@ localizationStatus = 'Not localized'
       serverName : '/nav_to_pose',
       actionName : 'nav2_msgs/NavigateToPose',
       use_image: 'turtlebot.png'
+    });
+
+    var client = new ROS2D.OccupancyGridClient({
+      ros : ros,
+      rootObject : NAV2D.rootObject,
+      continuous : NAV2D.continuous,
+      topic : NAV2D.map_topic
+    });
+
+    client.on('change', function() {
+      // scale the viewer to fit the map
+      NAV2D.old_state = NAV2D.resizeMap(NAV2D.old_state, viewer, client.currentGrid);
     });
     // Scale the canvas to fit to the map
     
