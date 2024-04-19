@@ -30,17 +30,17 @@ localizationStatus = 'Not localized'
 //       height : 600
 //     });
 
-//     // Setup the map client.
-//     var gridClient = new ROS2D.OccupancyGridClient({
-//       ros : ros,
-//       rootObject : viewer.scene
-//     });
-//     // Scale the canvas to fit to the map
-//     gridClient.on('change', function(){
-//       viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
-//       viewer.shift(-54.8,-39.8)
-//     }); 
-//   }
+  //   // Setup the map client.
+  //   var gridClient = new ROS2D.OccupancyGridClient({
+  //     ros : ros,
+  //     rootObject : viewer.scene
+  //   });
+  //   // Scale the canvas to fit to the map
+  //   gridClient.on('change', function(){
+  //     viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
+  //     viewer.shift(-54.8,-39.8)
+  //   }); 
+  // }
 
     // Connect to ROS.
     var ros = new ROSLIB.Ros({
@@ -55,14 +55,49 @@ localizationStatus = 'Not localized'
     });
 
     // Setup the nav client.
-    var gridClient = NAV2D.OccupancyGridClientNav({
+    // var gridClient = NAV2D.OccupancyGridClientNav({
+    //   ros : ros,
+    //   rootObject : viewer.scene,
+    //   viewer : viewer,
+    //   // serverName : '/nav_to_pose',
+    //   // actionName : 'nav2_msgs/NavigateToPose',
+    //   // use_image: 'turtlebot.png'
+    // });
+    var gridClient = new ROS2D.OccupancyGridClient({
       ros : ros,
-      rootObject : viewer.scene,
-      viewer : viewer,
-      serverName : '/nav_to_pose',
-      actionName : 'nav2_msgs/NavigateToPose',
-      use_image: 'turtlebot.png'
+      rootObject : viewer.scene
     });
+    // Scale the canvas to fit to the map
+    gridClient.on('change', function(){
+      viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
+      viewer.shift(-28, -13.1)
+    }); 
+    
+    var robotPose = new ROSLIB.Topic({
+      ros : ros,
+      name : '/robot_pose',
+      messageType : 'geometry_msgs/msg/Pose'
+    });
+    
+    var robotMarker = new ROS2D.NavigationImage({
+      size: 2.5,
+      image: 'turtlebot.png',
+      pulse: true
+    });
+    robotPose.subscribe(function(message) {
+      robotMarker.x = message["position"]["x"];
+      robotMarker.y = message["position"]["y"];
+      
+      var q0 = message["orientation"]["w"];
+      var q1 = message["orientation"]["x"];
+      var q2 = message["orientation"]["y"];
+      var q3 = message["orientation"]["z"];
+      robotMarker.rotation = -Math.atan2(2 * (q0 * q3 + q1 * q2), 1 - 2 * (q2 * q2 + q3 * q3)) * 180.0 / Math.PI;
+    });
+
+      gridClient.rootObject.addChild(robotMarker);
+      console.log(robotMarker.x);
+
 
     // var client = new ROS2D.OccupancyGridClient({
     //   ros : ros,
@@ -253,5 +288,3 @@ localizationStatus = 'Not localized'
       // Publish the message to the topic
       goalAddress.publish(goal_address);
     });
-
-    
