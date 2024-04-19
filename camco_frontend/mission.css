@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     background: linear-gradient(90deg, #0e3441, #427581);
-    background-image: url('backgrounds/login-background.png');
+    background-image: url('backgrounds/mission-background.png');
     background-size: fill; /* Cover the entire viewport */
   }
   
@@ -17,7 +17,7 @@ body {
   .content-wrapper {
     position: relative;
     top: 10px; 
-    left: 80%; 
+    left: 60%; 
     transform: translateX(-20%); 
   }
   
@@ -73,13 +73,14 @@ body {
     position: absolute;
     width: 300px;
     margin: auto;
-    background: linear-gradient(180deg, #8b8b8b, #ffffff 20%);
+    /* background: linear-gradient(180deg, #8b8b8b, #ffffff 20%); */
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ccc;
     top: 20%;
-    left: 10%;
+    left: 15%;
   }
 
   .container_menu::before { /* Pseudo-element for the horizontal line */
@@ -92,7 +93,7 @@ body {
   }
   
   h2 {
-    text-align: Left;
+    text-align: center;
     color: #333;
     
   }
@@ -152,7 +153,7 @@ body {
     width: 45%;
     padding: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: #007bff;
     margin-right: 10px;
     color: #fff;
@@ -161,10 +162,12 @@ body {
   }
   .button:disabled {
     background-color: #8b8b8b; /* Disabled button color */
+    border-radius: 20px;
   }
   
   button:not(:disabled):hover {
     background-color: #0056b3;
+    border-radius: 20px;
   }
 
   #readings-container {
@@ -173,10 +176,10 @@ body {
     flex-direction: column;
     margin-bottom: 20px;
     border-radius: 10px;
-    top: 50%;
-    left: 35%;
+    top: 65%;
+    left: 15%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    width: 200px;
+    width: 300px;
     background-color: #ffffff;
     padding: 20px;
     border: 2px solid #ccc;
