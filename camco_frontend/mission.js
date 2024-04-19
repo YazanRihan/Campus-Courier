@@ -81,7 +81,7 @@ localizationStatus = 'Not localized'
     
     var robotMarker = new ROS2D.NavigationImage({
       size: 2.5,
-      image: 'turtlebot.png',
+      image: './backgrounds/camco_navigation.png',
       pulse: true
     });
     robotPose.subscribe(function(message) {
