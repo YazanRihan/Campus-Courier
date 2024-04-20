@@ -12,6 +12,9 @@ const rooms = {
 
   "M10":
     ["main", "001", "002", "003", "004", "005", "006", "007", "008", "bathroom", "009", "010", "011"],
+
+  "M11":
+    ["008", "009", "010", "011", "012", "015", "016_M", "017_W", "018", "019", "020", "021", "022"]
 }
 
 const MIN_BATTERY = 20.0;
@@ -206,7 +209,7 @@ localizationStatus = 'Not localized'
         document.getElementById('navigate-button').disabled = true;
         document.getElementById('batteryState').style.color = '#991414';
       }
-      else if (battery < 50.0) {
+      else if (battery < 60.0) {
         document.getElementById('navigate-button').disabled = false;
         document.getElementById('batteryState').style.color = '#d18623';
       }
@@ -228,7 +231,7 @@ localizationStatus = 'Not localized'
       if (localization == "Not localized") {
         document.getElementById('localizationState').style.color = '#d18623';
       }
-      else if (missionState == "Localized" || missionState == "active"){
+      else if (localization == "localized"){
         document.getElementById('localizationState').style.color = '#2f852f';
       }
       

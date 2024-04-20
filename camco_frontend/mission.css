@@ -142,7 +142,7 @@ body {
     position: absolute;
     left: 0;
     right: 0;
-    top: 22%; /* Position at 25% of the container's height */
+    top: 25%; /* Position at 25% of the container's height */
     border-top: 3px solid #8b8b8b; /* The actual line, set the color as needed */
   }
   
@@ -222,7 +222,7 @@ body {
     flex-direction: column;
     margin-bottom: 20px;
     border-radius: 10px;
-    top: 62%;
+    top: 57.5%;
     left: 15%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     width: 300px;
