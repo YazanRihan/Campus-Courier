@@ -9,6 +9,7 @@
 <script type="text/javascript" src="./node_modules/ros2d/build/ros2d.min.js"></script>
 <script type="text/javascript" src="./node_modules/nav2djs/build/nav2d.min.js"></script>
 <link rel="stylesheet" href="mission.css">
+<link rel="stylesheet" href="./assets/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
   <div class="top-bar">Navigation Panel</div>
@@ -20,30 +21,49 @@
     </div>
   </div>
   <div id="readings-container"></div>
+
+  
   <div class="container_menu">
-    <h1>Map Controls</h1>
-    <div class="selection-container">
-      <h2>Starting Point:</h2>
-      <div class="select">
-        <label for="start-point-building">Building:</label>
-        <select id="start-point-building"></select>
-      </div>
-      <div class="select">
-        <label for="start-point-room">Room:</label>
-        <select id="start-point-room"></select>
-      </div>
-      <button class="button" id="initial-button">Set Initial Location</button>
-      <h2>Destination:</h2>
-      <div class="select">
-        <label for="destination-building">Building:</label>
-        <select id="destination-building"></select>
-      </div>
-      <div class="select">
-        <label for="destination-room">Room:</label>
-        <select id="destination-room"></select>
-      </div>
+    <div class="nav-item">
+      <span class="nav-icon"><i class="fa fa-map-o" aria-hidden="true"></i></span> 
+      <h1>Navgation Panel</h1>
     </div>
-    <button class="button" id="navigate-button">Navigate</button>
+    <div class="navigation-element">
+      <div class="nav-item">
+        <span class="nav-icon"><span class="fa fa-map-pin" aria-hidden="true"></span></span> 
+        <div class="select">
+          <select id="start-point-building"></select>
+        </div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-dots">
+          <span class="dot">&#9679;</span> <!-- This is a placeholder for your actual dot -->
+        </div>
+        <div class="select">
+          <select id="start-point-room">Room</select>
+        </div>
+      </div>
+      <div class="nav-dots">
+          <span class="dot">&#9679;</span> <!-- This is a placeholder for your actual dot -->
+          <span class="dot">&#9679;</span>
+      </div>
+      <div class="nav-item">
+        <div class="nav-dots">
+          <span class="dot">&#9679;</span> <!-- This is a placeholder for your actual dot -->
+        </div>
+        <div class="select">
+          <select id="destination-building"></select>
+        </div>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span> <!-- Placeholder for your pin icon -->
+        <div class="select">
+          <select id="destination-room"></select>
+        </div>
+    </div>
+  </div>
+  <button class="button" id="initial-button">Set Initial Location</button>
+  <button class="button" id="navigate-button">Navigate Mission</button>
   </div>
   <!-- <div class="bottom-bar">Bottom Bar Content</div> -->
   <script src="mission.js"></script>

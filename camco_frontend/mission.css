@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     background: linear-gradient(90deg, #0e3441, #427581);
-    background-image: url('backgrounds/login-background.png');
+    background-image: url('backgrounds/mission-background.png');
     background-size: fill; /* Cover the entire viewport */
   }
   
@@ -17,7 +17,7 @@ body {
   .content-wrapper {
     position: relative;
     top: 10px; 
-    left: 80%; 
+    left: 60%; 
     transform: translateX(-20%); 
   }
   
@@ -71,19 +71,29 @@ body {
   
   .container_menu {
     position: absolute;
-    width: 400px;
+    width: 300px;
     margin: auto;
-    background: linear-gradient(180deg, #8b8b8b, #ffffff 10%);
+    /* background: linear-gradient(180deg, #8b8b8b, #ffffff 20%); */
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ccc;
     top: 20%;
-    left: 10%;
+    left: 15%;
+  }
+
+  .container_menu::before { /* Pseudo-element for the horizontal line */
+    content: ''; /* Necessary for pseudo-elements */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 22%; /* Position at 25% of the container's height */
+    border-top: 3px solid #8b8b8b; /* The actual line, set the color as needed */
   }
   
   h2 {
-    text-align: Left;
+    text-align: center;
     color: #333;
     
   }
@@ -97,24 +107,40 @@ body {
   .selection-container {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+  }
+
+  .select-group {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
   }
   
   .select {
-    margin-bottom: 10px;
+    /* margin-bottom: 10px;
     display: flex;
+    flex-direction: column; */
     flex-direction: column;
+    display: flex;
+    width: calc(50% - 5px); /* Adjust width to account for the gap between selects */
+    margin-bottom: 5px;
+
   }
   
   label {
     font-weight: bold;
+    margin-right: 5px;
   }
   
   select {
-    width: 85%;
+    /* width: 85%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px; */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width: 100%; /* Select will fill the width of its container */
   }
 
   select:hover {
@@ -123,22 +149,25 @@ body {
   
   button {
     position: relative;
-    left: 25%;
-    width: 50%;
+    left: 0.5%;
+    width: 45%;
     padding: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: #007bff;
+    margin-right: 10px;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s;
   }
   .button:disabled {
     background-color: #8b8b8b; /* Disabled button color */
+    border-radius: 20px;
   }
   
   button:not(:disabled):hover {
     background-color: #0056b3;
+    border-radius: 20px;
   }
 
   #readings-container {
@@ -147,10 +176,10 @@ body {
     flex-direction: column;
     margin-bottom: 20px;
     border-radius: 10px;
-    top: 50%;
-    left: 35%;
+    top: 65%;
+    left: 15%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    width: 200px;
+    width: 300px;
     background-color: #ffffff;
     padding: 20px;
     border: 2px solid #ccc;
@@ -160,3 +189,54 @@ body {
     color: #333;
   }
   
+
+
+
+  .navigation-element {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.nav-icon {
+    font-size: 24px; /* Adjust the size as needed */
+    margin-right: 10px;
+    /* If you're using actual images, replace the content with your image tags */
+}
+.select {
+  /* margin-bottom: 10px; */
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+select {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 10px;
+    outline: none; /* Optional: removes the default focus outline */
+    -webkit-appearance: none; /* Removes default styling on iOS and other WebKit browsers */
+    -moz-appearance: none; /* Removes default styling on Firefox */
+    appearance: none; /* Modern way to reset the default styling across all browsers */
+    width: 200px; /* Adjust width as needed */
+    background: url('path_to_your_down_arrow_icon.png') no-repeat right; /* Path to your arrow icon */
+    background-size: 12px; /* Adjust size as necessary */
+    cursor: pointer; /* Changes the cursor for better UX */
+}
+
+.nav-dots {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 10px; /* Align with the icons above and below */
+}
+
+.dot {
+    font-size: 24px; /* Adjust the size as needed */
+    color: #ccc;
+}

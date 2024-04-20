@@ -7,7 +7,14 @@ body {
     background-size: cover; /* Cover the entire viewport */
 
   }
-  
+
+  #camco-image {
+    position: absolute;
+    top: 0%;
+    left: 36%;
+    transform: scale(0.8);
+  }
+
   .container {
     width: 100%;
     height: 100vh;
