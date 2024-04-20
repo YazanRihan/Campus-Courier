@@ -12,7 +12,18 @@
 <link rel="stylesheet" href="./assets/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-  <div class="top-bar">Navigation Panel</div>
+  <div class="top-bar">
+    <a href="/" class="navbar-logo"><img class="logo" src="./assets/nav-bar-logo.png" alt="logo"></a>
+    <nav-bar>
+      <ul class="nav_links">
+        <li><a href="#">Main Page</a></li>
+        <li><a href="#">Description</a></li>
+        <li><a href="#">Manual</a></li>
+        <li><a href="#">Sign Out</a></li>
+      </ul>
+    </nav-bar>
+    <a class="cta"><button>Contact Us</button></a>
+  </div>
   <div class="container">
     <div class="content-wrapper">
       <div id="map-container">
@@ -21,18 +32,22 @@
     </div>
   </div>
   <div class="status-panel" id="readings-container">
+    <div class="nav-item">
+      <span class="nav-icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span> 
+      <h1>Mission Status</h1>
+    </div>
     <dl>
-      <dt>Battery State:</dt> 
+      <dt><i class="fa fa-battery-half"></i> Battery State:</dt> 
       <dd id="batteryState"></dd><br>
-      <dt>Remaining Time:</dt>
+      <dt><i class="fa fa-clock-o"></i> Remaining Time:</dt>
       <dd id="remainingTime">0s</dd><br>
-      <dt>Remaining Distance:</dt>
+      <dt><i class="fa fa-road"></i> Remaining Distance:</dt>
       <dd id="remainingDistance">0.00m</dd><br>
-      <dt>Speed:</dt>
-      <dd id="remainingSpeed">0.00 m/s</dd><br>
-      <dt>Mission State:</dt>
+      <dt><i class="fa fa-tachometer"></i> Speed:</dt>
+      <dd id="speed">0.00 m/s</dd><br>
+      <dt><i class="fa fa-crosshairs"></i> Mission State:</dt>
       <dd id="missionState">Unknown</dd><br>
-      <dt>Localization State:</dt>
+      <dt><i class="fa fa-map-marker"></i> Localization State:</dt>
       <dd id="localizationState">Not localized</dd>
   </dl>
   </div>

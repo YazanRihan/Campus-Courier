@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -46,22 +48,74 @@ body {
     box-shadow: 0 0 20px rgb(0, 0, 0);
   }
 
-  .top-bar {
-    background-color: #37697c;
-    color: white;
-    padding: 20px 0px;
-    text-align: center;
+  li, a {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #edf0f1;
+    text-decoration: none;
   }
 
-  /* Style for bottom bar */
-  .bottom-bar {
-    background-color: #333;
-    color: white;
-    padding: 25px 0px;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+  button{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: #edf0f1;
+    text-decoration: none;
+  }
+
+  .top-bar {
+    background-color: #24252A;
+    padding: 10px 90px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .navbar-logo img {
+    height: 30px; /* Adjust the height to fit your navbar's height */
+    width: auto; /* Maintains the aspect ratio */
+  } 
+  
+  .logo {
+    cursor: pointer;
+    transform: scale(2);
+  }
+
+  .nav_links{
+    list-style: none;
+  }
+
+  .nav_links li{
+    display: inline-block;
+    padding: 0px 20px;
+  }
+
+  .nav_links li a{
+    transition: all 0.3s ease 0s;
+  }
+
+  .nav_links li a:hover{
+    color: #0088a9;
+  }
+
+  a button {
+    padding: 9px 25px;
+    width: 150px;
+    background-color: rgba(0, 136, 169, 1);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #edf0f1;
+    text-decoration: none;
+  }
+
+  a button:hover {
+    background-color: rgba(0, 136, 169, 0.8);
   }
 
   /* Style for main content */
@@ -94,8 +148,7 @@ body {
   
   h2 {
     text-align: center;
-    color: #333;
-    
+    color: #333;    
   }
 
   h1 {
@@ -176,7 +229,7 @@ body {
     flex-direction: column;
     margin-bottom: 20px;
     border-radius: 10px;
-    top: 65%;
+    top: 62%;
     left: 15%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     width: 300px;
@@ -199,6 +252,15 @@ body {
     max-width: 300px;
     margin: 0 auto;
   }
+
+  .status-panel::before { /* Pseudo-element for the horizontal line */
+    content: ''; /* Necessary for pseudo-elements */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 33%; /* Position at 25% of the container's height */
+    border-top: 3px solid #8b8b8b; /* The actual line, set the color as needed */
+  }
   
   .status-panel dl {
     margin: 0;
@@ -212,6 +274,13 @@ body {
     font-weight: bold;
     color: #333;
     margin-right: 5px; /* Adjust the space between the label and value */
+    margin-bottom: 3px;
+  }
+
+  .status-panel dt i {
+    margin-right: 10px; /* Space between the icon and the text */
+    width: 20px; /* Ensure all icons are the same width */
+    text-align: center; /* Center the icon if it is narrower than the width */
   }
   
   .status-panel dd {

@@ -197,7 +197,7 @@ localizationStatus = 'Not localized'
       document.getElementById('batteryState').innerHTML = battery.toFixed(2) + "%";
       document.getElementById('remainingTime').innerHTML = time + "s";
       document.getElementById('remainingDistance').innerHTML = distance.toFixed(2) + "m";
-      document.getElementById('remainingSpeed').innerHTML = speed.toFixed(2) + "m/s";
+      document.getElementById('speed').innerHTML = speed.toFixed(2) + "m/s";
       document.getElementById('missionState').innerHTML = mission;
       document.getElementById('localizationState').innerHTML = localization;
 
