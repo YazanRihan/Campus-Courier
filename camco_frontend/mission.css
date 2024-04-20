@@ -188,8 +188,37 @@ body {
     font-size: 16px;
     color: #333;
   }
-  
 
+  .status-panel {
+    /* Your existing styles */
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .status-panel dl {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .status-panel dt {
+    /* Set to display inline-block if you want to control the width, 
+       or inline if you don't */
+    display: inline-block;
+    font-weight: bold;
+    color: #333;
+    margin-right: 5px; /* Adjust the space between the label and value */
+  }
+  
+  .status-panel dd {
+    display: inline; /* This will place the definition directly next to the term */
+    margin: 0 0 0 5px; /* Add a small margin for better readability */
+    color: #000;
+  }
 
 
   .navigation-element {

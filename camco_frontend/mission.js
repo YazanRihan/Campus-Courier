@@ -120,7 +120,7 @@ localizationStatus = 'Not localized'
     var remainingTime = "0";
     var remainingDistance = "0";
     var batteryState = "0";
-    var missionState = "";
+    var missionState = "Unkown";
     var xSpeed = "0";
 
     // Topic subscription example on initialpose to use it for other information
@@ -184,17 +184,23 @@ localizationStatus = 'Not localized'
       const mission = missionState;
       const localization = localizationStatus;
     
-      // Format the data into a strings
-      const readingsString = `Battery State: ${battery.toFixed(2)}%<br>
-                              Remaining Time: ${time}s<br>
-                              Remaining Distance: ${distance.toFixed(2)}m<br>
-                              Speed: ${speed.toFixed(2)} m/s<br>
-                              Mission State: ${mission}<br>
-                              Localization State: ${localization}`;
+      // // Format the data into a strings
+      // const readingsString = `Battery State: ${battery.toFixed(2)}%<br>
+      //                         Remaining Time: ${time}s<br>
+      //                         Remaining Distance: ${distance.toFixed(2)}m<br>
+      //                         Speed: ${speed.toFixed(2)} m/s<br>
+      //                         Mission State: ${mission}<br>
+      //                         Localization State: ${localization}`;
 
     
       // Update the content of the readings container
-      document.getElementById('readings-container').innerHTML = readingsString;
+      document.getElementById('batteryState').innerHTML = battery.toFixed(2) + "%";
+      document.getElementById('remainingTime').innerHTML = time + "s";
+      document.getElementById('remainingDistance').innerHTML = distance.toFixed(2) + "m";
+      document.getElementById('remainingSpeed').innerHTML = speed.toFixed(2) + "m/s";
+      document.getElementById('missionState').innerHTML = mission;
+      document.getElementById('localizationState').innerHTML = localization;
+
 
       //Disable Navigate Button when battery is low
       if (battery < MIN_BATTERY) {
