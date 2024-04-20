@@ -1,4 +1,9 @@
 const rooms = {
+  "M5":
+  ["main", "203", "female_bathroom", "205", "206", "207", "208", "209", "210", "211", "212", "212A", 
+  "213", "214", "215", "216", "217", "218", "219", "220", "221", "222", "223", "male_bathroom", "225", "226", 
+  "227", "228", "229", "230", "231", "232", "234", "235", "236", "237", "238", "239", "239A"],
+  
   "M8":
     ["main", "001", "002", "003", "004", "005", "007", "008", "009", "bathroom", "010", "011", "012"],
 
@@ -7,11 +12,6 @@ const rooms = {
 
   "M10":
     ["main", "001", "002", "003", "004", "005", "006", "007", "008", "bathroom", "009", "010", "011"],
-  
-  "M5":
-    ["main", "203", "female_bathroom", "205", "206", "207", "208", "209", "210", "211", "212", "212A", 
-    "213", "214", "215", "216", "217", "218", "219", "220", "221", "222", "223", "male_bathroom", "225", "226", 
-    "227", "228", "229", "230", "231", "232", "234", "235", "236", "237", "238", "239", "239A"]
 }
 
 const MIN_BATTERY = 20.0;
@@ -85,8 +85,8 @@ localizationStatus = 'Not localized'
       pulse: true
     });
     robotPose.subscribe(function(message) {
-      robotMarker.x = message["position"]["x"];
-      robotMarker.y = message["position"]["y"];
+      robotMarker.x = parseFloat(message["position"]["x"]);
+      robotMarker.y = parseFloat(message["position"]["y"]) * -1;
       
       var q0 = message["orientation"]["w"];
       var q1 = message["orientation"]["x"];
@@ -155,7 +155,7 @@ localizationStatus = 'Not localized'
     });
 
     poseNavigationFeedback.subscribe(function(message) {
-      remainingTime = JSON.stringify(message["estimated_remaining_time"]["sec"]);
+      remainingTime = JSON.stringify(message["estimated_time_remaining"]["sec"]);
       remainingDistance = JSON.stringify(message["distance_remaining"]);
     });
 
@@ -200,7 +200,6 @@ localizationStatus = 'Not localized'
       document.getElementById('speed').innerHTML = speed.toFixed(2) + "m/s";
       document.getElementById('missionState').innerHTML = mission;
       document.getElementById('localizationState').innerHTML = localization;
-
 
       //Disable Navigate Button when battery is low
       if (battery < MIN_BATTERY) {

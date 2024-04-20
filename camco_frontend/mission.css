@@ -170,9 +170,6 @@ body {
   }
   
   .select {
-    /* margin-bottom: 10px;
-    display: flex;
-    flex-direction: column; */
     flex-direction: column;
     display: flex;
     width: calc(50% - 5px); /* Adjust width to account for the gap between selects */
@@ -186,10 +183,6 @@ body {
   }
   
   select {
-    /* width: 85%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px; */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
