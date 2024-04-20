@@ -204,10 +204,34 @@ localizationStatus = 'Not localized'
       //Disable Navigate Button when battery is low
       if (battery < MIN_BATTERY) {
         document.getElementById('navigate-button').disabled = true;
+        document.getElementById('batteryState').style.color = '#991414';
+      }
+      else if (battery < 50.0) {
+        document.getElementById('navigate-button').disabled = false;
+        document.getElementById('batteryState').style.color = '#d18623';
       }
       else {
         document.getElementById('navigate-button').disabled = false;
+        document.getElementById('batteryState').style.color = '#2f852f';
       }
+
+      if (missionState == "failed") {
+        document.getElementById('missionState').style.color = '#991414';
+      }
+      else if (missionState == "Unkown") {
+        document.getElementById('missionState').style.color = '#d18623';
+      }
+      else if (missionState == "succeeded" || missionState == "active"){
+        document.getElementById('missionState').style.color = '#2f852f';
+      }
+
+      if (localization == "Not localized") {
+        document.getElementById('localizationState').style.color = '#d18623';
+      }
+      else if (missionState == "Localized" || missionState == "active"){
+        document.getElementById('localizationState').style.color = '#2f852f';
+      }
+      
 
     }
     setInterval(updateReadings, 200);
