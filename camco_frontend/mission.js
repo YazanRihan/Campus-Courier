@@ -73,7 +73,7 @@ localizationStatus = 'Not localized'
     // Scale the canvas to fit to the map
     gridClient.on('change', function(){
       viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
-      viewer.shift(-28, -13.1)
+      viewer.shift(-13.6, -22.3)
     }); 
     
     var robotPose = new ROSLIB.Topic({
