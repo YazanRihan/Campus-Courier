@@ -9,6 +9,7 @@
 
   <depend>camco_navigation</depend>
   <depend>geometry_msgs</depend>
+  <depend>camco_kobuki_interface</depend>
 
   <exec_depend>camco_msgs</exec_depend>
 

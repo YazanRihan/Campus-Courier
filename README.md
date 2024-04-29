@@ -14,6 +14,20 @@ rosdep install --from-paths src --ignore-src -r -y
 colcon build --symlink-install
 ```
 
+To build Campus Courier on humble
+
+```
+cd
+mkdir -p camco_ws/src
+cd ~/camco_ws/src
+git clone https://github.com/YazanRihan/Campus-Courier.git
+cd ~/camco_ws
+vcs import src < src/Campus-Courier/dependencies_humble.repos
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y
+colcon build --symlink-install
+```
+
 To connect Kobuki hardware
 ```
 wget https://raw.githubusercontent.com/kobuki-base/kobuki_ftdi/devel/60-kobuki.rules

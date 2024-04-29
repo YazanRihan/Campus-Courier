@@ -1,4 +1,4 @@
-#repos required to build Campus Courier on Foxy
+#repos required to build Campus Courier on humble
 repositories:
   kobuki_core:
     type: git
@@ -7,7 +7,7 @@ repositories:
   velocity_smoother:
     type: git
     url: https://github.com/kobuki-base/velocity_smoother.git
-    version: release/0.14.x
+    version: devel
   cmd_vel_mux:
     type: git
     url: https://github.com/kobuki-base/cmd_vel_mux.git
@@ -19,8 +19,24 @@ repositories:
   kobuki_ros:
     type: git
     url: https://github.com/kobuki-base/kobuki_ros.git
-    version: release/1.1.x
+    version: devel
   robot_pose_publisher_ros2:
      type: git
      url: https://github.com/YazanRihan/robot_pose_publisher_ros2.git
      version: main
+  sophus:
+    type: git
+    url: https://github.com/stonier/sophus.git
+    version: release/1.2.x
+  ecl_tools:
+    type: git
+    url: https://github.com/stonier/ecl_tools.git
+    version: devel
+  ecl_lite:
+    type: git
+    url: https://github.com/CNURobotics/ecl_lite.git
+    version: humble-test
+  ecl_core:
+    type: git
+    url: https://github.com/CNURobotics/ecl_core.git
+    version: humble-test
