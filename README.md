@@ -8,7 +8,7 @@ mkdir -p camco_ws/src
 cd ~/camco_ws/src
 git clone https://github.com/YazanRihan/Campus-Courier.git
 cd ~/camco_ws
-vcs import src < src/Campus-Courier/dependencies.repos
+vcs import src < src/Campus-Courier/dependencies_foxy.repos
 rosdep update --include-eol-distros
 rosdep install --from-paths src --ignore-src -r -y
 colcon build --symlink-install
