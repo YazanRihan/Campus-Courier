@@ -10,6 +10,8 @@
   <depend>camco_navigation</depend>
   <depend>geometry_msgs</depend>
   <depend>camco_kobuki_interface</depend>
+  <depend>robot_pose_publisher_ros2</depend>
+  <depend>rosbridge_server</depend>
 
   <exec_depend>camco_msgs</exec_depend>
 
