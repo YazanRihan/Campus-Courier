@@ -17,6 +17,8 @@ WORKDIR /root/camco_ws
 RUN mkdir ./src
 RUN git clone https://github.com/YazanRihan/Campus-Courier.git --branch main ./src/Campus-Courier
 RUN vcs import src < ./src/Campus-Courier/dependencies_${ROS_DISTRO}.repos
+RUN rm /etc/ros/rosdep/sources.list.d/20-default.list
+RUN rosdep init
 RUN apt update && apt upgrade -y \
     && rosdep update \
     && rosdep install -y --ignore-src --from-paths src -r
